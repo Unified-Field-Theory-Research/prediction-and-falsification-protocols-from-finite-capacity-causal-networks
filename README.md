@@ -40,8 +40,9 @@ This repo is intentionally separate from the upstream theorem repositories:
 The current theorem package is open and non-promoting. `PFP-001` records the
 upstream binding and claim boundary through the closed Paper 14 result.
 `PFP-002` defines finite prediction-and-falsification protocol records as
-bounded, auditable, non-promoting interface rows. `PFP-003` is the active next
-obligation: define finite prediction target, observable, and regime
+bounded, auditable, non-promoting interface rows. `PFP-003` defines finite
+prediction target, observable, and regime descriptors. `PFP-004` is the active
+next obligation: define finite falsification threshold and rejection-condition
 descriptors.
 
 This does not prove protocol recovery, benchmark success, prediction success,

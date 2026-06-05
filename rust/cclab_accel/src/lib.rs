@@ -21,6 +21,8 @@ pub const PAPER15_SKELETON_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp001-nonpromoting-skeleton";
 pub const PAPER15_PFP002_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp002-finite-record";
+pub const PAPER15_PFP003_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp003-descriptors";
 pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -276,6 +278,56 @@ impl PFP002FiniteProtocolRecord {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP003PredictionTargetRegimeDescriptor {
+    pub protocol_record: PFP002FiniteProtocolRecord,
+    pub prediction_target_descriptor: &'static str,
+    pub observable_descriptor: &'static str,
+    pub regime_descriptor: &'static str,
+    pub descriptors_linked_to_protocol_row: bool,
+    pub descriptors_are_selection_criteria_only: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP003PredictionTargetRegimeDescriptor {
+    pub const fn canonical() -> Self {
+        Self {
+            protocol_record: PFP002FiniteProtocolRecord::canonical(),
+            prediction_target_descriptor: "target-selection-descriptor",
+            observable_descriptor: "observable-selection-descriptor",
+            regime_descriptor: "regime-selection-descriptor",
+            descriptors_linked_to_protocol_row: true,
+            descriptors_are_selection_criteria_only: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn descriptor_labels(&self) -> [&'static str; 3] {
+        [
+            self.prediction_target_descriptor,
+            self.observable_descriptor,
+            self.regime_descriptor,
+        ]
+    }
+
+    pub fn all_descriptor_labels_are_bounded(&self) -> bool {
+        self.descriptor_labels()
+            .into_iter()
+            .all(is_bounded_protocol_label)
+    }
+
+    pub fn closes_pfp003(&self) -> bool {
+        self.protocol_record.closes_pfp002()
+            && self.all_descriptor_labels_are_bounded()
+            && self.descriptors_linked_to_protocol_row
+            && self.descriptors_are_selection_criteria_only
+            && !self.claim_boundary.observed_particle_catalog_recovery_claim
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -317,6 +369,20 @@ impl Paper15SkeletonCertificate {
         }
     }
 
+    pub const fn pfp003_descriptor_only() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
+            pfp003_prediction_target_regime_closed: true,
+            pfp004_falsification_threshold_closed: false,
+            pfp005_paper14_benchmark_compatibility_closed: false,
+            pfp006_stability_reproducibility_closed: false,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: false,
+            pfp008_final_conditional_certificate_closed: false,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
     pub fn closes_paper15_theorem(&self) -> bool {
         self.pfp001_upstream_binding_closed
             && self.pfp002_finite_protocol_record_closed
@@ -349,5 +415,5 @@ pub fn is_bounded_protocol_label(value: &str) -> bool {
 }
 
 pub fn active_obligation() -> &'static str {
-    "PFP-003"
+    "PFP-004"
 }

@@ -3,9 +3,9 @@ use std::path::{Path, PathBuf};
 
 use cclab_accel::{
     active_obligation, is_bounded_protocol_label, paper15_skeleton_marker, PFP001UpstreamBinding,
-    PFP002FiniteProtocolRecord, Paper15ClaimBoundary, Paper15SkeletonCertificate,
-    PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT, PAPER14_FROZEN_COMMIT,
-    PAPER15_PFP002_MARKER,
+    PFP002FiniteProtocolRecord, PFP003PredictionTargetRegimeDescriptor, Paper15ClaimBoundary,
+    Paper15SkeletonCertificate, PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT,
+    PAPER14_FROZEN_COMMIT, PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER,
 };
 
 fn repo_root() -> PathBuf {
@@ -117,6 +117,56 @@ fn pfp002_skeleton_still_keeps_final_theorem_open() {
 }
 
 #[test]
+fn pfp003_defines_target_observable_regime_descriptors_without_recovery() {
+    let descriptors = PFP003PredictionTargetRegimeDescriptor::canonical();
+    assert!(descriptors.closes_pfp003());
+    assert!(descriptors.protocol_record.closes_pfp002());
+    assert!(descriptors.all_descriptor_labels_are_bounded());
+    assert!(descriptors.descriptors_linked_to_protocol_row);
+    assert!(descriptors.descriptors_are_selection_criteria_only);
+    assert!(
+        !descriptors
+            .claim_boundary
+            .observed_particle_catalog_recovery_claim
+    );
+    assert_eq!(
+        PAPER15_PFP003_MARKER,
+        "paper15-prediction-falsification-protocols-pfp003-descriptors"
+    );
+}
+
+#[test]
+fn pfp003_rejects_unlinked_catalog_recovery_or_prediction_success() {
+    let mut unlinked = PFP003PredictionTargetRegimeDescriptor::canonical();
+    unlinked.descriptors_linked_to_protocol_row = false;
+    assert!(!unlinked.closes_pfp003());
+
+    let mut recovery = PFP003PredictionTargetRegimeDescriptor::canonical();
+    recovery.claim_boundary = Paper15ClaimBoundary {
+        observed_particle_catalog_recovery_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!recovery.closes_pfp003());
+
+    let mut prediction_success = PFP003PredictionTargetRegimeDescriptor::canonical();
+    prediction_success.claim_boundary = Paper15ClaimBoundary {
+        prediction_success_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!prediction_success.closes_pfp003());
+}
+
+#[test]
+fn pfp003_skeleton_still_keeps_final_theorem_open() {
+    let skeleton = Paper15SkeletonCertificate::pfp003_descriptor_only();
+    assert!(skeleton.pfp001_upstream_binding_closed);
+    assert!(skeleton.pfp002_finite_protocol_record_closed);
+    assert!(skeleton.pfp003_prediction_target_regime_closed);
+    assert!(!skeleton.pfp004_falsification_threshold_closed);
+    assert!(!skeleton.closes_paper15_theorem());
+}
+
+#[test]
 fn upstream_json_records_paper14_certificate_and_nonpromotion() {
     let upstream = read_repo_file("UPSTREAM-PAPERS.json");
     assert!(upstream.contains(PAPER14_FROZEN_COMMIT));
@@ -131,15 +181,16 @@ fn upstream_json_records_paper14_certificate_and_nonpromotion() {
 }
 
 #[test]
-fn docs_keep_pfp003_active_and_success_claims_false() {
+fn docs_keep_pfp004_active_and_success_claims_false() {
     let state = read_repo_file("GPD/state.json");
     let state_md = read_repo_file("GPD/STATE.md");
     let theorem = read_repo_file("docs/prediction_and_falsification_protocols_theorem.md");
 
-    assert_eq!(active_obligation(), "PFP-003");
-    assert!(state.contains("\"active_obligation\": \"PFP-003\""));
+    assert_eq!(active_obligation(), "PFP-004");
+    assert!(state.contains("\"active_obligation\": \"PFP-004\""));
     assert!(state.contains("\"prediction_and_falsification_protocols_theorem_closed\": false"));
     assert!(state.contains("\"pfp002_finite_protocol_record_closed\": true"));
+    assert!(state.contains("\"pfp003_prediction_target_regime_closed\": true"));
     assert!(state.contains("\"protocol_recovery_claim\": false"));
     assert!(state.contains("\"benchmark_success_claim\": false"));
     assert!(state.contains("\"prediction_success_claim\": false"));
@@ -147,8 +198,8 @@ fn docs_keep_pfp003_active_and_success_claims_false() {
     assert!(state.contains("\"physical_promotion_claim\": false"));
     assert!(state.contains("\"physical_validation_claim\": false"));
     assert!(state.contains("\"empirical_adequacy_claim\": false"));
-    assert!(state_md.contains("`PFP-003`: Define finite prediction target"));
-    assert!(theorem.contains("PFP-003"));
+    assert!(state_md.contains("`PFP-004`: Define finite falsification threshold"));
+    assert!(theorem.contains("PFP-004"));
     assert!(theorem.contains("no unified field theory claim"));
 }
 

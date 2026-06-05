@@ -9,18 +9,21 @@
   benchmark success, prediction success, falsification success,
   observed-catalog recovery, simulation-only promotion, or fit-only
   calibration.
+- `PFP-003`: Finite prediction target, observable, and regime descriptors
+  without importing observed-catalog recovery, benchmark success, prediction
+  success, falsification success, physical validation, empirical adequacy,
+  physical promotion, or unified-field promotion.
 
 ## Active
 
-- `PFP-003`: Define finite prediction target, observable, and regime
-  descriptors without importing observed-catalog recovery, benchmark success,
-  prediction success, falsification success, physical validation, empirical
-  adequacy, physical promotion, or unified-field promotion.
+- `PFP-004`: Define finite falsification threshold and rejection-condition
+  descriptors without importing falsification success, benchmark success,
+  prediction success, physical validation, empirical adequacy,
+  simulation-only promotion, fit-only calibration, physical promotion, or
+  unified-field promotion.
 
 ## Planned
 
-- `PFP-004`: Define finite falsification threshold and rejection-condition
-  descriptors.
 - `PFP-005`: Define compatibility with Paper 14 benchmark rows without
   claiming benchmark, prediction, or falsification success.
 - `PFP-006`: Define protocol stability, coarse-graining, and reproducibility

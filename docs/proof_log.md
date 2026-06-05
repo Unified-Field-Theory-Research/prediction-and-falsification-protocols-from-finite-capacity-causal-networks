@@ -18,3 +18,10 @@
   simulation-only promotion, fit-only calibration, physical nature
   realization, and unified-field promotion.
 - Recorded `PFP-003` as the active next obligation.
+- Closed `PFP-003` by defining finite prediction target, observable, and
+  regime descriptors linked to a closed `PFP-002` protocol row.
+- Added Rust and Lean guards that descriptors are selection criteria only and
+  do not import observed-catalog recovery, benchmark success, prediction
+  success, falsification success, physical validation, empirical adequacy,
+  physical promotion, physical nature realization, or unified-field promotion.
+- Recorded `PFP-004` as the active next obligation.

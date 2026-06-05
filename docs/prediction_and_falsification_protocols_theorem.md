@@ -38,14 +38,19 @@ Closed boundary for `PFP-002`:
 - no simulation-only or fit-only shortcut
 - no unified field theory claim
 
-## Active Rung
-
 - `PFP-003`: finite prediction target, observable, and regime descriptors
+  linked to closed `PFP-002` protocol rows as selection criteria only, without
+  observed-catalog recovery, benchmark success, prediction success,
+  falsification success, physical validation, empirical adequacy, physical
+  promotion, physical nature realization, or unified-field promotion.
 
-## Planned Rungs
+## Active Rung
 
 - `PFP-004`: finite falsification threshold and rejection-condition
   descriptors
+
+## Planned Rungs
+
 - `PFP-005`: Paper 14 benchmark compatibility without benchmark, prediction,
   or falsification success
 - `PFP-006`: protocol stability, coarse-graining, and reproducibility behavior

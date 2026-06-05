@@ -266,6 +266,104 @@ theorem pfp002_canonical_finite_protocol_record_closed :
   simp
 
 /--
+`PFP-003` refines a closed finite protocol row with finite prediction-target,
+observable, and regime descriptors. These descriptors are selection metadata
+for protocol construction only; they do not recover an observed catalog or
+claim benchmark, prediction, falsification, validation, or promotion success.
+-/
+structure PFP003PredictionTargetRegimeContract where
+  pfp002FiniteProtocolRecordClosed : Prop
+  finitePredictionTargetDescriptor : Prop
+  finiteObservableDescriptor : Prop
+  finiteRegimeDescriptor : Prop
+  descriptorLabelsBounded : Prop
+  descriptorsLinkedToProtocolRow : Prop
+  descriptorsAreSelectionCriteriaOnly : Prop
+  noObservedCatalogRecoveryClaim : Prop
+  noBenchmarkSuccessClaim : Prop
+  noPredictionSuccessClaim : Prop
+  noFalsificationSuccessClaim : Prop
+  noPhysicalPromotionClaim : Prop
+  noPhysicalValidationClaim : Prop
+  noEmpiricalAdequacyClaim : Prop
+  noPhysicalNatureClaim : Prop
+  noUnifiedFieldTheoryClaim : Prop
+
+def PFP003PredictionTargetRegimeContract.closed
+    (c : PFP003PredictionTargetRegimeContract) : Prop :=
+  c.pfp002FiniteProtocolRecordClosed ∧
+  c.finitePredictionTargetDescriptor ∧
+  c.finiteObservableDescriptor ∧
+  c.finiteRegimeDescriptor ∧
+  c.descriptorLabelsBounded ∧
+  c.descriptorsLinkedToProtocolRow ∧
+  c.descriptorsAreSelectionCriteriaOnly ∧
+  c.noObservedCatalogRecoveryClaim ∧
+  c.noBenchmarkSuccessClaim ∧
+  c.noPredictionSuccessClaim ∧
+  c.noFalsificationSuccessClaim ∧
+  c.noPhysicalPromotionClaim ∧
+  c.noPhysicalValidationClaim ∧
+  c.noEmpiricalAdequacyClaim ∧
+  c.noPhysicalNatureClaim ∧
+  c.noUnifiedFieldTheoryClaim
+
+theorem pfp003_prediction_target_regime_closed_from_fields
+    (c : PFP003PredictionTargetRegimeContract)
+    (hPFP002 : c.pfp002FiniteProtocolRecordClosed)
+    (hTarget : c.finitePredictionTargetDescriptor)
+    (hObservable : c.finiteObservableDescriptor)
+    (hRegime : c.finiteRegimeDescriptor)
+    (hBounded : c.descriptorLabelsBounded)
+    (hLinked : c.descriptorsLinkedToProtocolRow)
+    (hSelectionOnly : c.descriptorsAreSelectionCriteriaOnly)
+    (hNoObserved : c.noObservedCatalogRecoveryClaim)
+    (hNoBenchmark : c.noBenchmarkSuccessClaim)
+    (hNoPrediction : c.noPredictionSuccessClaim)
+    (hNoFalsification : c.noFalsificationSuccessClaim)
+    (hNoPromotion : c.noPhysicalPromotionClaim)
+    (hNoValidation : c.noPhysicalValidationClaim)
+    (hNoEmpirical : c.noEmpiricalAdequacyClaim)
+    (hNoNature : c.noPhysicalNatureClaim)
+    (hNoUFT : c.noUnifiedFieldTheoryClaim) :
+    PFP003PredictionTargetRegimeContract.closed c := by
+  unfold PFP003PredictionTargetRegimeContract.closed
+  exact ⟨hPFP002, hTarget, hObservable, hRegime, hBounded, hLinked,
+    hSelectionOnly, hNoObserved, hNoBenchmark, hNoPrediction,
+    hNoFalsification, hNoPromotion, hNoValidation, hNoEmpirical,
+    hNoNature, hNoUFT⟩
+
+def pfp003CanonicalPredictionTargetRegimeContract :
+    PFP003PredictionTargetRegimeContract :=
+  {
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    finitePredictionTargetDescriptor := True,
+    finiteObservableDescriptor := True,
+    finiteRegimeDescriptor := True,
+    descriptorLabelsBounded := True,
+    descriptorsLinkedToProtocolRow := True,
+    descriptorsAreSelectionCriteriaOnly := True,
+    noObservedCatalogRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem pfp003_canonical_prediction_target_regime_closed :
+    PFP003PredictionTargetRegimeContract.closed
+      pfp003CanonicalPredictionTargetRegimeContract := by
+  unfold PFP003PredictionTargetRegimeContract.closed
+  unfold pfp003CanonicalPredictionTargetRegimeContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -370,6 +468,41 @@ theorem paper15_pfp002_skeleton_does_not_close_prediction_falsification_protocol
       paper15PFP002SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15PFP002SkeletonContract
+  simp
+
+def paper15PFP003SkeletonContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed := False,
+    pfp005Paper14BenchmarkCompatibilityClosed := False,
+    pfp006StabilityReproducibilityClosed := False,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed := False,
+    pfp008FinalConditionalCertificateClosed := False,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp003_skeleton_does_not_close_prediction_falsification_protocols_theorem :
+    ¬ Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15PFP003SkeletonContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15PFP003SkeletonContract
   simp
 
 end FiniteCapacity
