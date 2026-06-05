@@ -37,8 +37,9 @@ This repo is intentionally separate from the upstream theorem repositories:
 - Paper 14 discriminating benchmarks repo: `https://github.com/Unified-Field-Theory-Research/discriminating-benchmarks-from-finite-capacity-causal-networks`
 - Upstream binding file: `UPSTREAM-PAPERS.json`
 
-The current theorem package is open and non-promoting. `PFP-001` records the
-upstream binding and claim boundary through the closed Paper 14 result.
+The current theorem package is closed conditionally and remains non-promoting.
+`PFP-001` records the upstream binding and claim boundary through the closed
+Paper 14 result.
 `PFP-002` defines finite prediction-and-falsification protocol records as
 bounded, auditable, non-promoting interface rows. `PFP-003` defines finite
 prediction target, observable, and regime descriptors. `PFP-004` defines
@@ -47,7 +48,7 @@ defines Paper 14 benchmark compatibility without benchmark, prediction, or
 falsification success. `PFP-006` defines protocol stability, coarse-graining,
 and reproducibility behavior. `PFP-007` audits for hidden promotion,
 validation, prediction-success, or falsification-success imports. `PFP-008`
-is the active next obligation: assemble the final conditional certificate.
+assembles the final conditional certificate.
 
 This does not prove protocol recovery, benchmark success, prediction success,
 falsification success, physical promotion, physical validation, empirical

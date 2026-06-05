@@ -5,10 +5,11 @@ use cclab_accel::{
     active_obligation, is_bounded_protocol_label, paper15_skeleton_marker, PFP001UpstreamBinding,
     PFP002FiniteProtocolRecord, PFP003PredictionTargetRegimeDescriptor,
     PFP004FalsificationThresholdDescriptor, PFP005Paper14BenchmarkCompatibility,
-    PFP006StabilityReproducibility, PFP007NoHiddenPromotionAudit, Paper15ClaimBoundary,
-    Paper15SkeletonCertificate, PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT,
-    PAPER14_FROZEN_COMMIT, PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER, PAPER15_PFP004_MARKER,
-    PAPER15_PFP005_MARKER, PAPER15_PFP006_MARKER, PAPER15_PFP007_MARKER,
+    PFP006StabilityReproducibility, PFP007NoHiddenPromotionAudit,
+    PFP008FinalConditionalCertificate, Paper15ClaimBoundary, Paper15SkeletonCertificate,
+    PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT, PAPER14_FROZEN_COMMIT,
+    PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER, PAPER15_PFP004_MARKER, PAPER15_PFP005_MARKER,
+    PAPER15_PFP006_MARKER, PAPER15_PFP007_MARKER, PAPER15_PFP008_MARKER,
 };
 
 fn repo_root() -> PathBuf {
@@ -370,6 +371,45 @@ fn pfp007_skeleton_still_keeps_final_theorem_open() {
 }
 
 #[test]
+fn pfp008_final_certificate_closes_conditional_theorem_only() {
+    let certificate = PFP008FinalConditionalCertificate::canonical();
+    let theorem = Paper15SkeletonCertificate::final_conditional_certificate();
+
+    assert!(certificate.closes_pfp008());
+    assert!(certificate.upstream_binding.closes_pfp001());
+    assert!(certificate.hidden_audit.closes_pfp007());
+    assert!(certificate.finite_protocol_interface_constructed);
+    assert!(certificate.final_certificate_conditional);
+    assert!(certificate.all_claim_boundaries_preserved);
+    assert!(theorem.closes_paper15_theorem());
+    assert!(theorem
+        .claim_boundary
+        .all_physical_and_success_claims_remain_false());
+    assert_eq!(
+        PAPER15_PFP008_MARKER,
+        "paper15-prediction-falsification-protocols-pfp008-final-certificate"
+    );
+}
+
+#[test]
+fn pfp008_rejects_nonconditional_or_promoting_final_certificate() {
+    let mut nonconditional = PFP008FinalConditionalCertificate::canonical();
+    nonconditional.final_certificate_conditional = false;
+    assert!(!nonconditional.closes_pfp008());
+
+    let mut boundary_not_preserved = PFP008FinalConditionalCertificate::canonical();
+    boundary_not_preserved.all_claim_boundaries_preserved = false;
+    assert!(!boundary_not_preserved.closes_pfp008());
+
+    let mut promoting = PFP008FinalConditionalCertificate::canonical();
+    promoting.claim_boundary = Paper15ClaimBoundary {
+        unified_field_theory_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!promoting.closes_pfp008());
+}
+
+#[test]
 fn upstream_json_records_paper14_certificate_and_nonpromotion() {
     let upstream = read_repo_file("UPSTREAM-PAPERS.json");
     assert!(upstream.contains(PAPER14_FROZEN_COMMIT));
@@ -384,20 +424,21 @@ fn upstream_json_records_paper14_certificate_and_nonpromotion() {
 }
 
 #[test]
-fn docs_keep_pfp008_active_and_success_claims_false() {
+fn docs_record_no_active_obligation_and_success_claims_false() {
     let state = read_repo_file("GPD/state.json");
     let state_md = read_repo_file("GPD/STATE.md");
     let theorem = read_repo_file("docs/prediction_and_falsification_protocols_theorem.md");
 
-    assert_eq!(active_obligation(), "PFP-008");
-    assert!(state.contains("\"active_obligation\": \"PFP-008\""));
-    assert!(state.contains("\"prediction_and_falsification_protocols_theorem_closed\": false"));
+    assert_eq!(active_obligation(), "NONE");
+    assert!(state.contains("\"active_obligation\": \"NONE\""));
+    assert!(state.contains("\"prediction_and_falsification_protocols_theorem_closed\": true"));
     assert!(state.contains("\"pfp002_finite_protocol_record_closed\": true"));
     assert!(state.contains("\"pfp003_prediction_target_regime_closed\": true"));
     assert!(state.contains("\"pfp004_falsification_threshold_closed\": true"));
     assert!(state.contains("\"pfp005_paper14_benchmark_compatibility_closed\": true"));
     assert!(state.contains("\"pfp006_stability_reproducibility_closed\": true"));
     assert!(state.contains("\"pfp007_no_hidden_promotion_validation_success_audit_closed\": true"));
+    assert!(state.contains("\"pfp008_final_conditional_certificate_closed\": true"));
     assert!(state.contains("\"protocol_recovery_claim\": false"));
     assert!(state.contains("\"benchmark_success_claim\": false"));
     assert!(state.contains("\"prediction_success_claim\": false"));
@@ -405,8 +446,9 @@ fn docs_keep_pfp008_active_and_success_claims_false() {
     assert!(state.contains("\"physical_promotion_claim\": false"));
     assert!(state.contains("\"physical_validation_claim\": false"));
     assert!(state.contains("\"empirical_adequacy_claim\": false"));
-    assert!(state_md.contains("`PFP-008`: Assemble the final conditional"));
-    assert!(theorem.contains("PFP-008"));
+    assert!(state_md
+        .contains("The local Paper 15 prediction and falsification protocols theorem is closed"));
+    assert!(theorem.contains("No active rungs remain"));
     assert!(theorem.contains("no unified field theory claim"));
 }
 

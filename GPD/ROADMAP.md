@@ -27,15 +27,16 @@
   unified-field promotion.
 - `PFP-007`: No-hidden-promotion, validation, success, recovery, shortcut,
   physical-nature, or unified-field import audit.
+- `PFP-008`: Final conditional prediction-and-falsification protocols
+  certificate.
 
 ## Active
 
-- `PFP-008`: Assemble the final conditional prediction-and-falsification
-  protocols certificate.
+No active theorem rungs remain.
 
 ## Planned
 
-No planned rungs remain after `PFP-008`.
+No planned theorem rungs remain.
 
 All planned rungs remain conditional and non-promoting unless explicitly
 closed by formal and Rust guards.

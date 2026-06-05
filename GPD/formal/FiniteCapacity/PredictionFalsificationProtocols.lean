@@ -797,6 +797,111 @@ theorem pfp007_canonical_no_hidden_promotion_validation_success_audit_closed :
   simp
 
 /--
+`PFP-008` is the final conditional certificate. It assembles closed `PFP-001`
+through `PFP-007` into the Paper 15 theorem contract as finite protocol
+structure only. It does not convert the interface into protocol recovery,
+benchmark success, prediction success, falsification success, empirical
+adequacy, validation, physical promotion, physical-nature realization, or a
+unified-field claim.
+-/
+structure PFP008FinalConditionalCertificateContract where
+  pfp001UpstreamBindingClosed : Prop
+  pfp002FiniteProtocolRecordClosed : Prop
+  pfp003PredictionTargetRegimeClosed : Prop
+  pfp004FalsificationThresholdClosed : Prop
+  pfp005Paper14BenchmarkCompatibilityClosed : Prop
+  pfp006StabilityReproducibilityClosed : Prop
+  pfp007NoHiddenPromotionValidationSuccessAuditClosed : Prop
+  finiteProtocolInterfaceConstructed : Prop
+  finalCertificateConditional : Prop
+  allClaimBoundariesPreserved : Prop
+  noProtocolRecoveryClaim : Prop
+  noBenchmarkSuccessClaim : Prop
+  noPredictionSuccessClaim : Prop
+  noFalsificationSuccessClaim : Prop
+  noPhysicalPromotionClaim : Prop
+  noPhysicalValidationClaim : Prop
+  noEmpiricalAdequacyClaim : Prop
+  noObservedCatalogRecoveryClaim : Prop
+  noSimulationOnlyPromotionClaim : Prop
+  noFitOnlyCalibrationClaim : Prop
+  noPhysicalNatureClaim : Prop
+  noUnifiedFieldTheoryClaim : Prop
+
+def PFP008FinalConditionalCertificateContract.closed
+    (c : PFP008FinalConditionalCertificateContract) : Prop :=
+  c.pfp001UpstreamBindingClosed ∧
+  c.pfp002FiniteProtocolRecordClosed ∧
+  c.pfp003PredictionTargetRegimeClosed ∧
+  c.pfp004FalsificationThresholdClosed ∧
+  c.pfp005Paper14BenchmarkCompatibilityClosed ∧
+  c.pfp006StabilityReproducibilityClosed ∧
+  c.pfp007NoHiddenPromotionValidationSuccessAuditClosed ∧
+  c.finiteProtocolInterfaceConstructed ∧
+  c.finalCertificateConditional ∧
+  c.allClaimBoundariesPreserved ∧
+  c.noProtocolRecoveryClaim ∧
+  c.noBenchmarkSuccessClaim ∧
+  c.noPredictionSuccessClaim ∧
+  c.noFalsificationSuccessClaim ∧
+  c.noPhysicalPromotionClaim ∧
+  c.noPhysicalValidationClaim ∧
+  c.noEmpiricalAdequacyClaim ∧
+  c.noObservedCatalogRecoveryClaim ∧
+  c.noSimulationOnlyPromotionClaim ∧
+  c.noFitOnlyCalibrationClaim ∧
+  c.noPhysicalNatureClaim ∧
+  c.noUnifiedFieldTheoryClaim
+
+def pfp008CanonicalFinalConditionalCertificateContract :
+    PFP008FinalConditionalCertificateContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    pfp005Paper14BenchmarkCompatibilityClosed :=
+      PFP005Paper14BenchmarkCompatibilityContract.closed
+        pfp005CanonicalPaper14BenchmarkCompatibilityContract,
+    pfp006StabilityReproducibilityClosed :=
+      PFP006StabilityReproducibilityContract.closed
+        pfp006CanonicalStabilityReproducibilityContract,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed :=
+      PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+        pfp007CanonicalNoHiddenPromotionValidationSuccessAuditContract,
+    finiteProtocolInterfaceConstructed := True,
+    finalCertificateConditional := True,
+    allClaimBoundariesPreserved := True,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noObservedCatalogRecoveryClaim := True,
+    noSimulationOnlyPromotionClaim := True,
+    noFitOnlyCalibrationClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem pfp008_canonical_final_conditional_certificate_closed :
+    PFP008FinalConditionalCertificateContract.closed
+      pfp008CanonicalFinalConditionalCertificateContract := by
+  unfold PFP008FinalConditionalCertificateContract.closed
+  unfold pfp008CanonicalFinalConditionalCertificateContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -1096,6 +1201,51 @@ theorem paper15_pfp007_skeleton_does_not_close_prediction_falsification_protocol
       paper15PFP007SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15PFP007SkeletonContract
+  simp
+
+def paper15FinalPredictionFalsificationProtocolsTheoremContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    pfp005Paper14BenchmarkCompatibilityClosed :=
+      PFP005Paper14BenchmarkCompatibilityContract.closed
+        pfp005CanonicalPaper14BenchmarkCompatibilityContract,
+    pfp006StabilityReproducibilityClosed :=
+      PFP006StabilityReproducibilityContract.closed
+        pfp006CanonicalStabilityReproducibilityContract,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed :=
+      PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+        pfp007CanonicalNoHiddenPromotionValidationSuccessAuditContract,
+    pfp008FinalConditionalCertificateClosed :=
+      PFP008FinalConditionalCertificateContract.closed
+        pfp008CanonicalFinalConditionalCertificateContract,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp008_final_conditional_certificate_closes_prediction_falsification_protocols_theorem :
+    Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15FinalPredictionFalsificationProtocolsTheoremContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15FinalPredictionFalsificationProtocolsTheoremContract
   simp
 
 end FiniteCapacity

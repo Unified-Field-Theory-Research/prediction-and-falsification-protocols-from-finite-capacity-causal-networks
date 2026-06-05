@@ -57,3 +57,9 @@
 - Added Rust and Lean guards that all hidden routes remain blocked and the
   theorem still does not close until the final conditional certificate.
 - Recorded `PFP-008` as the active next obligation.
+- Closed `PFP-008` by assembling the final conditional certificate from
+  closed `PFP-001` through `PFP-007`.
+- Added the Lean theorem
+  `paper15_pfp008_final_conditional_certificate_closes_prediction_falsification_protocols_theorem`.
+- Added Rust guards showing the final Paper 15 theorem closes conditionally
+  only when all claim boundaries remain false.

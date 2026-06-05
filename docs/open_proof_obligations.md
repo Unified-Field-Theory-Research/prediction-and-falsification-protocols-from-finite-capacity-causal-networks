@@ -2,23 +2,7 @@
 
 ## Active
 
-### PFP-008
-
-Assemble the final conditional prediction-and-falsification protocols
-certificate.
-
-Acceptance criteria:
-
-- the certificate consumes closed `PFP-001` through `PFP-007`
-- the full Paper 15 theorem closes conditionally as finite protocol structure
-  only
-- all protocol recovery, benchmark success, prediction success,
-  falsification success, physical promotion, physical validation, empirical
-  adequacy, observed-catalog recovery, simulation-only promotion,
-  fit-only calibration, physical nature realization, and unified-field claims
-  remain false
-- Rust and Lean guards show the full Paper 15 theorem contract closes only
-  under the final certificate and non-promotion boundary
+No active proof obligations remain.
 
 ## Closed
 
@@ -32,3 +16,5 @@ Acceptance criteria:
   behavior.
 - `PFP-007`: No-hidden-promotion, validation, success, recovery, and shortcut
   import audit.
+- `PFP-008`: Final conditional prediction-and-falsification protocols
+  certificate.

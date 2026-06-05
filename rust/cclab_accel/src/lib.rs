@@ -31,6 +31,8 @@ pub const PAPER15_PFP006_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp006-stability";
 pub const PAPER15_PFP007_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp007-hidden-audit";
+pub const PAPER15_PFP008_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp008-final-certificate";
 pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -571,6 +573,40 @@ impl PFP007NoHiddenPromotionAudit {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP008FinalConditionalCertificate {
+    pub upstream_binding: PFP001UpstreamBinding,
+    pub hidden_audit: PFP007NoHiddenPromotionAudit,
+    pub finite_protocol_interface_constructed: bool,
+    pub final_certificate_conditional: bool,
+    pub all_claim_boundaries_preserved: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP008FinalConditionalCertificate {
+    pub const fn canonical() -> Self {
+        Self {
+            upstream_binding: PFP001UpstreamBinding::canonical(),
+            hidden_audit: PFP007NoHiddenPromotionAudit::canonical(),
+            finite_protocol_interface_constructed: true,
+            final_certificate_conditional: true,
+            all_claim_boundaries_preserved: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn closes_pfp008(&self) -> bool {
+        self.upstream_binding.closes_pfp001()
+            && self.hidden_audit.closes_pfp007()
+            && self.finite_protocol_interface_constructed
+            && self.final_certificate_conditional
+            && self.all_claim_boundaries_preserved
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -682,6 +718,20 @@ impl Paper15SkeletonCertificate {
         }
     }
 
+    pub const fn final_conditional_certificate() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
+            pfp003_prediction_target_regime_closed: true,
+            pfp004_falsification_threshold_closed: true,
+            pfp005_paper14_benchmark_compatibility_closed: true,
+            pfp006_stability_reproducibility_closed: true,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: true,
+            pfp008_final_conditional_certificate_closed: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
     pub fn closes_paper15_theorem(&self) -> bool {
         self.pfp001_upstream_binding_closed
             && self.pfp002_finite_protocol_record_closed
@@ -714,5 +764,5 @@ pub fn is_bounded_protocol_label(value: &str) -> bool {
 }
 
 pub fn active_obligation() -> &'static str {
-    "PFP-008"
+    "NONE"
 }

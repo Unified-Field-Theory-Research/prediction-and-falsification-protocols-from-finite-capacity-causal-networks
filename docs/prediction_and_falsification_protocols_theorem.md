@@ -60,14 +60,18 @@ Closed boundary for `PFP-002`:
 - `PFP-007`: no-hidden-promotion, validation, prediction, or falsification
   success import audit over every recovery, shortcut, physical-nature, and
   unified-field route.
+- `PFP-008`: final conditional certificate closing the Paper 15 theorem as
+  finite protocol structure only, without protocol recovery, benchmark
+  success, prediction success, falsification success, validation, promotion,
+  empirical adequacy, physical-nature realization, or unified-field claims.
 
 ## Active Rung
 
-- `PFP-008`: final conditional certificate
+No active rungs remain.
 
 ## Planned Rungs
 
-No planned rungs remain after the active final certificate.
+No planned rungs remain.
 
 ## Residual Risk
 
