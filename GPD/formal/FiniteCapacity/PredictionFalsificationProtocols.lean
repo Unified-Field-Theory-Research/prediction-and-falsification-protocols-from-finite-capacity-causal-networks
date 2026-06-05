@@ -145,6 +145,127 @@ theorem pfp001_canonical_upstream_binding_closed :
   simp
 
 /--
+`PFP-002` defines finite prediction-and-falsification protocol rows. The row
+is only a bounded audit interface: it names protocol, target, observable,
+regime, threshold, rejection-condition, and audit-status labels while keeping
+all success, validation, recovery, and promotion claims absent.
+-/
+structure PFP002FiniteProtocolRecordContract where
+  finiteRecordSchema : Prop
+  protocolIdentifierBounded : Prop
+  predictionTargetLabelBounded : Prop
+  observableLabelBounded : Prop
+  regimeLabelBounded : Prop
+  thresholdLabelBounded : Prop
+  rejectionConditionLabelBounded : Prop
+  auditStatusDescriptorBounded : Prop
+  auditableInterfaceRow : Prop
+  benchmarkCompatibilityOnlyReferenced : Prop
+  noProtocolRecoveryClaim : Prop
+  noBenchmarkSuccessClaim : Prop
+  noPredictionSuccessClaim : Prop
+  noFalsificationSuccessClaim : Prop
+  noPhysicalPromotionClaim : Prop
+  noPhysicalValidationClaim : Prop
+  noEmpiricalAdequacyClaim : Prop
+  noObservedCatalogRecoveryClaim : Prop
+  noSimulationOnlyPromotionClaim : Prop
+  noFitOnlyCalibrationClaim : Prop
+  noPhysicalNatureClaim : Prop
+  noUnifiedFieldTheoryClaim : Prop
+
+def PFP002FiniteProtocolRecordContract.closed
+    (c : PFP002FiniteProtocolRecordContract) : Prop :=
+  c.finiteRecordSchema ∧
+  c.protocolIdentifierBounded ∧
+  c.predictionTargetLabelBounded ∧
+  c.observableLabelBounded ∧
+  c.regimeLabelBounded ∧
+  c.thresholdLabelBounded ∧
+  c.rejectionConditionLabelBounded ∧
+  c.auditStatusDescriptorBounded ∧
+  c.auditableInterfaceRow ∧
+  c.benchmarkCompatibilityOnlyReferenced ∧
+  c.noProtocolRecoveryClaim ∧
+  c.noBenchmarkSuccessClaim ∧
+  c.noPredictionSuccessClaim ∧
+  c.noFalsificationSuccessClaim ∧
+  c.noPhysicalPromotionClaim ∧
+  c.noPhysicalValidationClaim ∧
+  c.noEmpiricalAdequacyClaim ∧
+  c.noObservedCatalogRecoveryClaim ∧
+  c.noSimulationOnlyPromotionClaim ∧
+  c.noFitOnlyCalibrationClaim ∧
+  c.noPhysicalNatureClaim ∧
+  c.noUnifiedFieldTheoryClaim
+
+theorem pfp002_finite_protocol_record_closed_from_fields
+    (c : PFP002FiniteProtocolRecordContract)
+    (hFinite : c.finiteRecordSchema)
+    (hProtocol : c.protocolIdentifierBounded)
+    (hTarget : c.predictionTargetLabelBounded)
+    (hObservable : c.observableLabelBounded)
+    (hRegime : c.regimeLabelBounded)
+    (hThreshold : c.thresholdLabelBounded)
+    (hRejection : c.rejectionConditionLabelBounded)
+    (hAudit : c.auditStatusDescriptorBounded)
+    (hAuditable : c.auditableInterfaceRow)
+    (hBenchmarkRef : c.benchmarkCompatibilityOnlyReferenced)
+    (hNoRecovery : c.noProtocolRecoveryClaim)
+    (hNoBenchmark : c.noBenchmarkSuccessClaim)
+    (hNoPrediction : c.noPredictionSuccessClaim)
+    (hNoFalsification : c.noFalsificationSuccessClaim)
+    (hNoPromotion : c.noPhysicalPromotionClaim)
+    (hNoValidation : c.noPhysicalValidationClaim)
+    (hNoEmpirical : c.noEmpiricalAdequacyClaim)
+    (hNoObserved : c.noObservedCatalogRecoveryClaim)
+    (hNoSimulation : c.noSimulationOnlyPromotionClaim)
+    (hNoFit : c.noFitOnlyCalibrationClaim)
+    (hNoNature : c.noPhysicalNatureClaim)
+    (hNoUFT : c.noUnifiedFieldTheoryClaim) :
+    PFP002FiniteProtocolRecordContract.closed c := by
+  unfold PFP002FiniteProtocolRecordContract.closed
+  exact ⟨hFinite, hProtocol, hTarget, hObservable, hRegime, hThreshold,
+    hRejection, hAudit, hAuditable, hBenchmarkRef, hNoRecovery,
+    hNoBenchmark, hNoPrediction, hNoFalsification, hNoPromotion,
+    hNoValidation, hNoEmpirical, hNoObserved, hNoSimulation, hNoFit,
+    hNoNature, hNoUFT⟩
+
+def pfp002CanonicalFiniteProtocolRecordContract :
+    PFP002FiniteProtocolRecordContract :=
+  {
+    finiteRecordSchema := True,
+    protocolIdentifierBounded := True,
+    predictionTargetLabelBounded := True,
+    observableLabelBounded := True,
+    regimeLabelBounded := True,
+    thresholdLabelBounded := True,
+    rejectionConditionLabelBounded := True,
+    auditStatusDescriptorBounded := True,
+    auditableInterfaceRow := True,
+    benchmarkCompatibilityOnlyReferenced := True,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noObservedCatalogRecoveryClaim := True,
+    noSimulationOnlyPromotionClaim := True,
+    noFitOnlyCalibrationClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem pfp002_canonical_finite_protocol_record_closed :
+    PFP002FiniteProtocolRecordContract.closed
+      pfp002CanonicalFiniteProtocolRecordContract := by
+  unfold PFP002FiniteProtocolRecordContract.closed
+  unfold pfp002CanonicalFiniteProtocolRecordContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -216,6 +337,39 @@ theorem paper15_pfp001_skeleton_does_not_close_prediction_falsification_protocol
       paper15InitialPFP001SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15InitialPFP001SkeletonContract
+  simp
+
+def paper15PFP002SkeletonContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed := False,
+    pfp004FalsificationThresholdClosed := False,
+    pfp005Paper14BenchmarkCompatibilityClosed := False,
+    pfp006StabilityReproducibilityClosed := False,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed := False,
+    pfp008FinalConditionalCertificateClosed := False,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp002_skeleton_does_not_close_prediction_falsification_protocols_theorem :
+    ¬ Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15PFP002SkeletonContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15PFP002SkeletonContract
   simp
 
 end FiniteCapacity

@@ -19,6 +19,9 @@ pub const PAPER14_FINAL_CERTIFICATE: &str =
 
 pub const PAPER15_SKELETON_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp001-nonpromoting-skeleton";
+pub const PAPER15_PFP002_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp002-finite-record";
+pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct UpstreamPaper {
@@ -212,6 +215,67 @@ impl PFP001UpstreamBinding {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP002FiniteProtocolRecord {
+    pub protocol_identifier: &'static str,
+    pub prediction_target_label: &'static str,
+    pub observable_label: &'static str,
+    pub regime_label: &'static str,
+    pub threshold_label: &'static str,
+    pub rejection_condition_label: &'static str,
+    pub audit_status_descriptor: &'static str,
+    pub paper14_benchmark_compatibility_reference: &'static str,
+    pub benchmark_compatibility_only_referenced: bool,
+    pub auditable_interface_row: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP002FiniteProtocolRecord {
+    pub const fn canonical() -> Self {
+        Self {
+            protocol_identifier: "pfp002-protocol-record",
+            prediction_target_label: "finite-target-label",
+            observable_label: "finite-observable-label",
+            regime_label: "finite-regime-label",
+            threshold_label: "finite-threshold-label",
+            rejection_condition_label: "finite-rejection-condition",
+            audit_status_descriptor: "definition-only-audit-status",
+            paper14_benchmark_compatibility_reference: PAPER14_FORMAL_ENDPOINT,
+            benchmark_compatibility_only_referenced: true,
+            auditable_interface_row: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn protocol_labels(&self) -> [&'static str; 7] {
+        [
+            self.protocol_identifier,
+            self.prediction_target_label,
+            self.observable_label,
+            self.regime_label,
+            self.threshold_label,
+            self.rejection_condition_label,
+            self.audit_status_descriptor,
+        ]
+    }
+
+    pub fn all_protocol_labels_are_bounded(&self) -> bool {
+        self.protocol_labels()
+            .into_iter()
+            .all(is_bounded_protocol_label)
+    }
+
+    pub fn closes_pfp002(&self) -> bool {
+        self.all_protocol_labels_are_bounded()
+            && self.paper14_benchmark_compatibility_reference == PAPER14_FORMAL_ENDPOINT
+            && self.benchmark_compatibility_only_referenced
+            && self.auditable_interface_row
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -229,6 +293,20 @@ impl Paper15SkeletonCertificate {
         Self {
             pfp001_upstream_binding_closed: true,
             pfp002_finite_protocol_record_closed: false,
+            pfp003_prediction_target_regime_closed: false,
+            pfp004_falsification_threshold_closed: false,
+            pfp005_paper14_benchmark_compatibility_closed: false,
+            pfp006_stability_reproducibility_closed: false,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: false,
+            pfp008_final_conditional_certificate_closed: false,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub const fn pfp002_record_only() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
             pfp003_prediction_target_regime_closed: false,
             pfp004_falsification_threshold_closed: false,
             pfp005_paper14_benchmark_compatibility_closed: false,
@@ -262,6 +340,14 @@ pub fn is_sha1_hex(value: &str) -> bool {
     value.len() == 40 && value.bytes().all(|byte| byte.is_ascii_hexdigit())
 }
 
+pub fn is_bounded_protocol_label(value: &str) -> bool {
+    !value.is_empty()
+        && value.len() <= FINITE_PROTOCOL_LABEL_MAX_BYTES
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'-' | b'_' | b':' | b'.'))
+}
+
 pub fn active_obligation() -> &'static str {
-    "PFP-002"
+    "PFP-003"
 }

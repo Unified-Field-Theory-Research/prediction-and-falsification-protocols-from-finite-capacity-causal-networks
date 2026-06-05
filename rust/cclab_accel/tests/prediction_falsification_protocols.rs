@@ -2,8 +2,10 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use cclab_accel::{
-    active_obligation, paper15_skeleton_marker, PFP001UpstreamBinding, Paper15SkeletonCertificate,
+    active_obligation, is_bounded_protocol_label, paper15_skeleton_marker, PFP001UpstreamBinding,
+    PFP002FiniteProtocolRecord, Paper15ClaimBoundary, Paper15SkeletonCertificate,
     PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT, PAPER14_FROZEN_COMMIT,
+    PAPER15_PFP002_MARKER,
 };
 
 fn repo_root() -> PathBuf {
@@ -61,6 +63,60 @@ fn initial_skeleton_keeps_paper15_theorem_open() {
 }
 
 #[test]
+fn pfp002_defines_finite_protocol_record_without_success_claims() {
+    let record = PFP002FiniteProtocolRecord::canonical();
+    assert!(record.closes_pfp002());
+    assert!(record.all_protocol_labels_are_bounded());
+    assert_eq!(
+        record.paper14_benchmark_compatibility_reference,
+        PAPER14_FORMAL_ENDPOINT
+    );
+    assert!(record.benchmark_compatibility_only_referenced);
+    assert!(record.auditable_interface_row);
+    assert!(record
+        .claim_boundary
+        .all_physical_and_success_claims_remain_false());
+    assert_eq!(
+        PAPER15_PFP002_MARKER,
+        "paper15-prediction-falsification-protocols-pfp002-finite-record"
+    );
+}
+
+#[test]
+fn pfp002_rejects_unbounded_or_promoting_protocol_rows() {
+    assert!(is_bounded_protocol_label("finite-target-label"));
+    assert!(!is_bounded_protocol_label(""));
+    assert!(!is_bounded_protocol_label(
+        "protocol-label-that-is-intentionally-longer-than-sixty-four-bytes"
+    ));
+    assert!(!is_bounded_protocol_label("contains whitespace"));
+
+    let mut promoting_record = PFP002FiniteProtocolRecord::canonical();
+    promoting_record.claim_boundary = Paper15ClaimBoundary {
+        prediction_success_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!promoting_record.closes_pfp002());
+
+    let mut benchmark_success_record = PFP002FiniteProtocolRecord::canonical();
+    benchmark_success_record.claim_boundary = Paper15ClaimBoundary {
+        benchmark_success_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!benchmark_success_record.closes_pfp002());
+}
+
+#[test]
+fn pfp002_skeleton_still_keeps_final_theorem_open() {
+    let skeleton = Paper15SkeletonCertificate::pfp002_record_only();
+    assert!(skeleton.pfp001_upstream_binding_closed);
+    assert!(skeleton.pfp002_finite_protocol_record_closed);
+    assert!(!skeleton.pfp003_prediction_target_regime_closed);
+    assert!(!skeleton.pfp008_final_conditional_certificate_closed);
+    assert!(!skeleton.closes_paper15_theorem());
+}
+
+#[test]
 fn upstream_json_records_paper14_certificate_and_nonpromotion() {
     let upstream = read_repo_file("UPSTREAM-PAPERS.json");
     assert!(upstream.contains(PAPER14_FROZEN_COMMIT));
@@ -75,14 +131,15 @@ fn upstream_json_records_paper14_certificate_and_nonpromotion() {
 }
 
 #[test]
-fn docs_keep_pfp002_active_and_success_claims_false() {
+fn docs_keep_pfp003_active_and_success_claims_false() {
     let state = read_repo_file("GPD/state.json");
     let state_md = read_repo_file("GPD/STATE.md");
     let theorem = read_repo_file("docs/prediction_and_falsification_protocols_theorem.md");
 
-    assert_eq!(active_obligation(), "PFP-002");
-    assert!(state.contains("\"active_obligation\": \"PFP-002\""));
+    assert_eq!(active_obligation(), "PFP-003");
+    assert!(state.contains("\"active_obligation\": \"PFP-003\""));
     assert!(state.contains("\"prediction_and_falsification_protocols_theorem_closed\": false"));
+    assert!(state.contains("\"pfp002_finite_protocol_record_closed\": true"));
     assert!(state.contains("\"protocol_recovery_claim\": false"));
     assert!(state.contains("\"benchmark_success_claim\": false"));
     assert!(state.contains("\"prediction_success_claim\": false"));
@@ -90,9 +147,8 @@ fn docs_keep_pfp002_active_and_success_claims_false() {
     assert!(state.contains("\"physical_promotion_claim\": false"));
     assert!(state.contains("\"physical_validation_claim\": false"));
     assert!(state.contains("\"empirical_adequacy_claim\": false"));
-    assert!(state_md
-        .contains("The local Paper 15 prediction and falsification protocols theorem is not"));
-    assert!(theorem.contains("PFP-002"));
+    assert!(state_md.contains("`PFP-003`: Define finite prediction target"));
+    assert!(theorem.contains("PFP-003"));
     assert!(theorem.contains("no unified field theory claim"));
 }
 

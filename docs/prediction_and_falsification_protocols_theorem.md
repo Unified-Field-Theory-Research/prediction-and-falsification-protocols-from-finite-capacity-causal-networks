@@ -16,12 +16,9 @@ promotion.
 
 - `PFP-001`: Upstream binding and claim-boundary scaffold through the frozen
   Paper 14 final conditional certificate.
-
-## Active Rung
-
 - `PFP-002`: Define finite prediction-and-falsification protocol records.
 
-Required boundary for `PFP-002`:
+Closed boundary for `PFP-002`:
 
 - finite protocol identifiers
 - finite prediction target labels
@@ -41,9 +38,12 @@ Required boundary for `PFP-002`:
 - no simulation-only or fit-only shortcut
 - no unified field theory claim
 
-## Planned Rungs
+## Active Rung
 
 - `PFP-003`: finite prediction target, observable, and regime descriptors
+
+## Planned Rungs
+
 - `PFP-004`: finite falsification threshold and rejection-condition
   descriptors
 - `PFP-005`: Paper 14 benchmark compatibility without benchmark, prediction,

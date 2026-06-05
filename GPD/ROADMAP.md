@@ -4,19 +4,21 @@
 
 - `PFP-001`: Upstream binding and claim-boundary scaffold through the frozen
   Paper 14 final conditional discriminating benchmarks certificate.
-
-## Active
-
-- `PFP-002`: Define finite prediction-and-falsification protocol records
-  without importing physical promotion, physical validation, empirical
-  adequacy, benchmark success, prediction success, falsification success,
+- `PFP-002`: Finite prediction-and-falsification protocol records without
+  importing physical promotion, physical validation, empirical adequacy,
+  benchmark success, prediction success, falsification success,
   observed-catalog recovery, simulation-only promotion, or fit-only
   calibration.
 
-## Planned
+## Active
 
 - `PFP-003`: Define finite prediction target, observable, and regime
-  descriptors.
+  descriptors without importing observed-catalog recovery, benchmark success,
+  prediction success, falsification success, physical validation, empirical
+  adequacy, physical promotion, or unified-field promotion.
+
+## Planned
+
 - `PFP-004`: Define finite falsification threshold and rejection-condition
   descriptors.
 - `PFP-005`: Define compatibility with Paper 14 benchmark rows without
