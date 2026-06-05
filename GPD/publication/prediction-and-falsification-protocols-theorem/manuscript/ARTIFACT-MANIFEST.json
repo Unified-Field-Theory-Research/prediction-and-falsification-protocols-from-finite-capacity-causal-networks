@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "paper": 15,
+  "title": "Prediction And Falsification Protocols From Finite-Capacity Causal Networks",
+  "artifacts": [
+    "prediction_and_falsification_protocols_theorem.tex",
+    "PAPER-CONFIG.json",
+    "reproducibility-manifest.json"
+  ],
+  "claim_boundary": {
+    "protocol_recovery_claim": false,
+    "benchmark_success_claim": false,
+    "prediction_success_claim": false,
+    "falsification_success_claim": false,
+    "physical_promotion_claim": false,
+    "physical_validation_claim": false,
+    "empirical_adequacy_claim": false,
+    "physical_nature_claim": false,
+    "unified_field_theory_claim": false
+  }
+}

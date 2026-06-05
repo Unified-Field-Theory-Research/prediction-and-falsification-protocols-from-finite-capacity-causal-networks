@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "paper": 15,
+  "phase": 1,
+  "phase_name": "Upstream Binding And Claim Boundary",
+  "active_obligation": "PFP-002",
+  "closed_obligations": [
+    "PFP-001"
+  ],
+  "upstream_frozen_through_paper14": true,
+  "paper14_frozen_commit": "ad4f876a1699874cd6efd7fe73d318e64f5bbe19",
+  "paper14_formal_endpoint": "Paper14DiscriminatingBenchmarksTheoremContract.closed",
+  "paper14_canonical_proof": "paper14_dbm008_final_conditional_certificate_closes_discriminating_benchmarks_theorem",
+  "paper15_claims": {
+    "pfp001_upstream_binding_closed": true,
+    "prediction_and_falsification_protocols_theorem_closed": false,
+    "protocol_recovery_claim": false,
+    "benchmark_success_claim": false,
+    "prediction_success_claim": false,
+    "falsification_success_claim": false,
+    "physical_promotion_claim": false,
+    "physical_validation_claim": false,
+    "empirical_adequacy_claim": false,
+    "observed_particle_catalog_recovery_claim": false,
+    "physical_standard_model_claim": false,
+    "physical_particle_excitation_claim": false,
+    "physical_matter_field_claim": false,
+    "physical_gauge_field_claim": false,
+    "physical_quantum_dynamics_claim": false,
+    "continuum_quantum_field_theory_claim": false,
+    "simulation_only_promotion": false,
+    "fit_only_calibration_claim": false,
+    "physical_nature_claim": false,
+    "unified_field_theory_claim": false
+  },
+  "next_move": "PFP-002: define finite prediction-and-falsification protocol records as bounded, auditable, non-promoting interface rows."
+}

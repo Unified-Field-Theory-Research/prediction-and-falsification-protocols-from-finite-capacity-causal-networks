@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "paper": 15,
+  "checks": [
+    "make test-fast",
+    "make lean-build"
+  ],
+  "formal_module": "FiniteCapacity.PredictionFalsificationProtocols",
+  "rust_test": "rust/cclab_accel/tests/prediction_falsification_protocols.rs",
+  "non_promotion_boundary_required": true
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "paper": 15,
+  "slug": "prediction-and-falsification-protocols-theorem",
+  "title": "Prediction And Falsification Protocols From Finite-Capacity Causal Networks",
+  "active_obligation": "PFP-002",
+  "closed_obligations": ["PFP-001"],
+  "status": "open_non_promoting_scaffold"
+}

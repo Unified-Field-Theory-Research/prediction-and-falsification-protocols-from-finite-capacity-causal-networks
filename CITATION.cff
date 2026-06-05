@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated Paper 15 workspace."
+title: "Prediction And Falsification Protocols From Finite-Capacity Causal Networks"
+authors:
+  - family-names: "Greenman"
+    given-names: "Abraham"
+repository-code: "https://github.com/Unified-Field-Theory-Research/prediction-and-falsification-protocols-from-finite-capacity-causal-networks"
+license: "MIT AND CC-BY-4.0"
+date-released: "2026-06-05"
