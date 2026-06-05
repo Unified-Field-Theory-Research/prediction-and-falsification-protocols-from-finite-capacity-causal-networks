@@ -25,3 +25,11 @@
   success, falsification success, physical validation, empirical adequacy,
   physical promotion, physical nature realization, or unified-field promotion.
 - Recorded `PFP-004` as the active next obligation.
+- Closed `PFP-004` by defining finite falsification threshold and
+  rejection-condition descriptors linked to closed `PFP-003` rows.
+- Added Rust and Lean guards that rejection conditions are predeclared
+  protocol rules only and do not import falsification success, benchmark
+  success, prediction success, empirical validation, fit-only calibration,
+  simulation-only promotion, physical promotion, physical nature realization,
+  or unified-field promotion.
+- Recorded `PFP-005` as the active next obligation.

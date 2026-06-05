@@ -23,6 +23,8 @@ pub const PAPER15_PFP002_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp002-finite-record";
 pub const PAPER15_PFP003_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp003-descriptors";
+pub const PAPER15_PFP004_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp004-thresholds";
 pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -328,6 +330,61 @@ impl PFP003PredictionTargetRegimeDescriptor {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP004FalsificationThresholdDescriptor {
+    pub descriptor_record: PFP003PredictionTargetRegimeDescriptor,
+    pub threshold_descriptor: &'static str,
+    pub rejection_condition_descriptor: &'static str,
+    pub threshold_linked_to_protocol_row: bool,
+    pub rejection_condition_linked_to_protocol_row: bool,
+    pub threshold_is_finite_criterion_only: bool,
+    pub rejection_condition_predeclared: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP004FalsificationThresholdDescriptor {
+    pub const fn canonical() -> Self {
+        Self {
+            descriptor_record: PFP003PredictionTargetRegimeDescriptor::canonical(),
+            threshold_descriptor: "finite-threshold-criterion",
+            rejection_condition_descriptor: "predeclared-rejection-rule",
+            threshold_linked_to_protocol_row: true,
+            rejection_condition_linked_to_protocol_row: true,
+            threshold_is_finite_criterion_only: true,
+            rejection_condition_predeclared: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn threshold_labels(&self) -> [&'static str; 2] {
+        [
+            self.threshold_descriptor,
+            self.rejection_condition_descriptor,
+        ]
+    }
+
+    pub fn all_threshold_labels_are_bounded(&self) -> bool {
+        self.threshold_labels()
+            .into_iter()
+            .all(is_bounded_protocol_label)
+    }
+
+    pub fn closes_pfp004(&self) -> bool {
+        self.descriptor_record.closes_pfp003()
+            && self.all_threshold_labels_are_bounded()
+            && self.threshold_linked_to_protocol_row
+            && self.rejection_condition_linked_to_protocol_row
+            && self.threshold_is_finite_criterion_only
+            && self.rejection_condition_predeclared
+            && !self.claim_boundary.falsification_success_claim
+            && !self.claim_boundary.simulation_only_promotion
+            && !self.claim_boundary.fit_only_calibration_claim
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -383,6 +440,20 @@ impl Paper15SkeletonCertificate {
         }
     }
 
+    pub const fn pfp004_threshold_only() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
+            pfp003_prediction_target_regime_closed: true,
+            pfp004_falsification_threshold_closed: true,
+            pfp005_paper14_benchmark_compatibility_closed: false,
+            pfp006_stability_reproducibility_closed: false,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: false,
+            pfp008_final_conditional_certificate_closed: false,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
     pub fn closes_paper15_theorem(&self) -> bool {
         self.pfp001_upstream_binding_closed
             && self.pfp002_finite_protocol_record_closed
@@ -415,5 +486,5 @@ pub fn is_bounded_protocol_label(value: &str) -> bool {
 }
 
 pub fn active_obligation() -> &'static str {
-    "PFP-004"
+    "PFP-005"
 }

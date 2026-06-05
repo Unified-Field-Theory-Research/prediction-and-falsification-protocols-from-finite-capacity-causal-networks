@@ -364,6 +364,118 @@ theorem pfp003_canonical_prediction_target_regime_closed :
   simp
 
 /--
+`PFP-004` adds finite falsification-threshold and rejection-condition
+descriptors to the closed descriptor stack. The rejection condition is a
+predeclared protocol rule only; closing this rung does not assert that any
+alternative has been falsified, that any prediction succeeded, or that any
+threshold has been empirically validated.
+-/
+structure PFP004FalsificationThresholdContract where
+  pfp003PredictionTargetRegimeClosed : Prop
+  finiteThresholdDescriptor : Prop
+  finiteRejectionConditionDescriptor : Prop
+  thresholdLabelBounded : Prop
+  rejectionConditionLabelBounded : Prop
+  thresholdLinkedToProtocolRow : Prop
+  rejectionConditionLinkedToProtocolRow : Prop
+  thresholdIsFiniteCriterionOnly : Prop
+  rejectionConditionPredeclared : Prop
+  noBenchmarkSuccessClaim : Prop
+  noPredictionSuccessClaim : Prop
+  noFalsificationSuccessClaim : Prop
+  noPhysicalPromotionClaim : Prop
+  noPhysicalValidationClaim : Prop
+  noEmpiricalAdequacyClaim : Prop
+  noSimulationOnlyPromotionClaim : Prop
+  noFitOnlyCalibrationClaim : Prop
+  noPhysicalNatureClaim : Prop
+  noUnifiedFieldTheoryClaim : Prop
+
+def PFP004FalsificationThresholdContract.closed
+    (c : PFP004FalsificationThresholdContract) : Prop :=
+  c.pfp003PredictionTargetRegimeClosed ∧
+  c.finiteThresholdDescriptor ∧
+  c.finiteRejectionConditionDescriptor ∧
+  c.thresholdLabelBounded ∧
+  c.rejectionConditionLabelBounded ∧
+  c.thresholdLinkedToProtocolRow ∧
+  c.rejectionConditionLinkedToProtocolRow ∧
+  c.thresholdIsFiniteCriterionOnly ∧
+  c.rejectionConditionPredeclared ∧
+  c.noBenchmarkSuccessClaim ∧
+  c.noPredictionSuccessClaim ∧
+  c.noFalsificationSuccessClaim ∧
+  c.noPhysicalPromotionClaim ∧
+  c.noPhysicalValidationClaim ∧
+  c.noEmpiricalAdequacyClaim ∧
+  c.noSimulationOnlyPromotionClaim ∧
+  c.noFitOnlyCalibrationClaim ∧
+  c.noPhysicalNatureClaim ∧
+  c.noUnifiedFieldTheoryClaim
+
+theorem pfp004_falsification_threshold_closed_from_fields
+    (c : PFP004FalsificationThresholdContract)
+    (hPFP003 : c.pfp003PredictionTargetRegimeClosed)
+    (hThreshold : c.finiteThresholdDescriptor)
+    (hRejection : c.finiteRejectionConditionDescriptor)
+    (hThresholdBounded : c.thresholdLabelBounded)
+    (hRejectionBounded : c.rejectionConditionLabelBounded)
+    (hThresholdLinked : c.thresholdLinkedToProtocolRow)
+    (hRejectionLinked : c.rejectionConditionLinkedToProtocolRow)
+    (hThresholdCriterion : c.thresholdIsFiniteCriterionOnly)
+    (hPredeclared : c.rejectionConditionPredeclared)
+    (hNoBenchmark : c.noBenchmarkSuccessClaim)
+    (hNoPrediction : c.noPredictionSuccessClaim)
+    (hNoFalsification : c.noFalsificationSuccessClaim)
+    (hNoPromotion : c.noPhysicalPromotionClaim)
+    (hNoValidation : c.noPhysicalValidationClaim)
+    (hNoEmpirical : c.noEmpiricalAdequacyClaim)
+    (hNoSimulation : c.noSimulationOnlyPromotionClaim)
+    (hNoFit : c.noFitOnlyCalibrationClaim)
+    (hNoNature : c.noPhysicalNatureClaim)
+    (hNoUFT : c.noUnifiedFieldTheoryClaim) :
+    PFP004FalsificationThresholdContract.closed c := by
+  unfold PFP004FalsificationThresholdContract.closed
+  exact ⟨hPFP003, hThreshold, hRejection, hThresholdBounded,
+    hRejectionBounded, hThresholdLinked, hRejectionLinked,
+    hThresholdCriterion, hPredeclared, hNoBenchmark, hNoPrediction,
+    hNoFalsification, hNoPromotion, hNoValidation, hNoEmpirical,
+    hNoSimulation, hNoFit, hNoNature, hNoUFT⟩
+
+def pfp004CanonicalFalsificationThresholdContract :
+    PFP004FalsificationThresholdContract :=
+  {
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    finiteThresholdDescriptor := True,
+    finiteRejectionConditionDescriptor := True,
+    thresholdLabelBounded := True,
+    rejectionConditionLabelBounded := True,
+    thresholdLinkedToProtocolRow := True,
+    rejectionConditionLinkedToProtocolRow := True,
+    thresholdIsFiniteCriterionOnly := True,
+    rejectionConditionPredeclared := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noSimulationOnlyPromotionClaim := True,
+    noFitOnlyCalibrationClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem pfp004_canonical_falsification_threshold_closed :
+    PFP004FalsificationThresholdContract.closed
+      pfp004CanonicalFalsificationThresholdContract := by
+  unfold PFP004FalsificationThresholdContract.closed
+  unfold pfp004CanonicalFalsificationThresholdContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -503,6 +615,43 @@ theorem paper15_pfp003_skeleton_does_not_close_prediction_falsification_protocol
       paper15PFP003SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15PFP003SkeletonContract
+  simp
+
+def paper15PFP004SkeletonContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    pfp005Paper14BenchmarkCompatibilityClosed := False,
+    pfp006StabilityReproducibilityClosed := False,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed := False,
+    pfp008FinalConditionalCertificateClosed := False,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp004_skeleton_does_not_close_prediction_falsification_protocols_theorem :
+    ¬ Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15PFP004SkeletonContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15PFP004SkeletonContract
   simp
 
 end FiniteCapacity

@@ -43,16 +43,20 @@ Closed boundary for `PFP-002`:
   observed-catalog recovery, benchmark success, prediction success,
   falsification success, physical validation, empirical adequacy, physical
   promotion, physical nature realization, or unified-field promotion.
+- `PFP-004`: finite falsification threshold and rejection-condition
+  descriptors linked to closed `PFP-003` rows as predeclared finite criteria
+  only, without falsification success, benchmark success, prediction success,
+  physical validation, empirical adequacy, simulation-only promotion,
+  fit-only calibration, physical promotion, physical nature realization, or
+  unified-field promotion.
 
 ## Active Rung
 
-- `PFP-004`: finite falsification threshold and rejection-condition
-  descriptors
+- `PFP-005`: Paper 14 benchmark compatibility without benchmark, prediction,
+  or falsification success
 
 ## Planned Rungs
 
-- `PFP-005`: Paper 14 benchmark compatibility without benchmark, prediction,
-  or falsification success
 - `PFP-006`: protocol stability, coarse-graining, and reproducibility behavior
 - `PFP-007`: no-hidden-promotion, validation, prediction, or falsification
   success import audit

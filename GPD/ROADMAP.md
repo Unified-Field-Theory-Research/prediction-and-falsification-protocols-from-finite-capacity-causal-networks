@@ -13,19 +13,20 @@
   without importing observed-catalog recovery, benchmark success, prediction
   success, falsification success, physical validation, empirical adequacy,
   physical promotion, or unified-field promotion.
-
-## Active
-
-- `PFP-004`: Define finite falsification threshold and rejection-condition
+- `PFP-004`: Finite falsification threshold and rejection-condition
   descriptors without importing falsification success, benchmark success,
   prediction success, physical validation, empirical adequacy,
   simulation-only promotion, fit-only calibration, physical promotion, or
   unified-field promotion.
 
-## Planned
+## Active
 
 - `PFP-005`: Define compatibility with Paper 14 benchmark rows without
-  claiming benchmark, prediction, or falsification success.
+  claiming benchmark, prediction, falsification, validation, physical
+  promotion, or unified-field success.
+
+## Planned
+
 - `PFP-006`: Define protocol stability, coarse-graining, and reproducibility
   behavior.
 - `PFP-007`: Audit for hidden physical-promotion, validation, prediction, or

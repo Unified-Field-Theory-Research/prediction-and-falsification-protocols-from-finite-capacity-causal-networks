@@ -41,9 +41,10 @@ The current theorem package is open and non-promoting. `PFP-001` records the
 upstream binding and claim boundary through the closed Paper 14 result.
 `PFP-002` defines finite prediction-and-falsification protocol records as
 bounded, auditable, non-promoting interface rows. `PFP-003` defines finite
-prediction target, observable, and regime descriptors. `PFP-004` is the active
-next obligation: define finite falsification threshold and rejection-condition
-descriptors.
+prediction target, observable, and regime descriptors. `PFP-004` defines
+finite falsification threshold and rejection-condition descriptors. `PFP-005`
+is the active next obligation: define Paper 14 benchmark compatibility without
+benchmark, prediction, or falsification success.
 
 This does not prove protocol recovery, benchmark success, prediction success,
 falsification success, physical promotion, physical validation, empirical

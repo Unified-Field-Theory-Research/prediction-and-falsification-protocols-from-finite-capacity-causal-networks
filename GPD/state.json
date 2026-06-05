@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
   "paper": 15,
-  "phase": 3,
-  "phase_name": "Prediction Target Observable Regime Descriptors",
-  "active_obligation": "PFP-004",
+  "phase": 4,
+  "phase_name": "Falsification Threshold Descriptors",
+  "active_obligation": "PFP-005",
   "closed_obligations": [
     "PFP-001",
     "PFP-002",
-    "PFP-003"
+    "PFP-003",
+    "PFP-004"
   ],
   "upstream_frozen_through_paper14": true,
   "paper14_frozen_commit": "ad4f876a1699874cd6efd7fe73d318e64f5bbe19",
@@ -17,7 +18,7 @@
     "pfp001_upstream_binding_closed": true,
     "pfp002_finite_protocol_record_closed": true,
     "pfp003_prediction_target_regime_closed": true,
-    "pfp004_falsification_threshold_closed": false,
+    "pfp004_falsification_threshold_closed": true,
     "pfp005_paper14_benchmark_compatibility_closed": false,
     "pfp006_stability_reproducibility_closed": false,
     "pfp007_no_hidden_promotion_validation_success_audit_closed": false,
@@ -42,5 +43,5 @@
     "physical_nature_claim": false,
     "unified_field_theory_claim": false
   },
-  "next_move": "PFP-004: define finite falsification threshold and rejection-condition descriptors as bounded, auditable, non-promoting protocol-row components."
+  "next_move": "PFP-005: define Paper 14 benchmark compatibility as bounded, auditable schema alignment without benchmark, prediction, or falsification success."
 }
