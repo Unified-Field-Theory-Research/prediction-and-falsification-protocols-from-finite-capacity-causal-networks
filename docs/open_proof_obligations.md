@@ -2,22 +2,21 @@
 
 ## Active
 
-### PFP-006
+### PFP-007
 
-Define protocol stability, coarse-graining, and reproducibility behavior for
-finite protocol rows.
+Audit for hidden physical-promotion, validation, prediction-success,
+falsification-success, recovery, and shortcut imports.
 
 Acceptance criteria:
 
-- stability descriptors are finite and tied to closed `PFP-005` compatibility
-  rows
-- coarse-graining and reproducibility descriptors preserve protocol labels,
-  audit rows, and claim boundaries
-- reproducibility behavior is compatibility of finite records, not reproduced
-  empirical success, validation, benchmark success, prediction success, or
-  falsification success
-- Rust and Lean guards show `PFP-006` can close while the full Paper 15 theorem
-  remains open
+- the audit consumes closed `PFP-006` stability/reproducibility records
+- every promotion, validation, benchmark-success, prediction-success,
+  falsification-success, recovery, observed-catalog recovery,
+  simulation-only promotion, fit-only calibration, physical-nature, and
+  unified-field route remains explicitly blocked
+- the audit is finite and fail-closed
+- Rust and Lean guards show `PFP-007` can close while the full Paper 15 theorem
+  remains open until the final conditional certificate
 
 ## Closed
 
@@ -27,3 +26,5 @@ Acceptance criteria:
 - `PFP-004`: Finite falsification threshold and rejection-condition
   descriptors.
 - `PFP-005`: Paper 14 benchmark compatibility as schema alignment only.
+- `PFP-006`: Protocol stability, coarse-graining, and reproducibility
+  behavior.

@@ -583,6 +583,121 @@ theorem pfp005_canonical_paper14_benchmark_compatibility_closed :
   simp
 
 /--
+`PFP-006` defines finite protocol stability, coarse-graining, and
+reproducibility behavior. Reproducibility here is finite-record compatibility
+under the preserved audit boundary, not reproduced empirical success,
+benchmark success, prediction success, falsification success, validation, or
+promotion.
+-/
+structure PFP006StabilityReproducibilityContract where
+  pfp005Paper14BenchmarkCompatibilityClosed : Prop
+  finiteStabilityDescriptor : Prop
+  finiteCoarseGrainingDescriptor : Prop
+  finiteReproducibilityDescriptor : Prop
+  stabilityPreservesProtocolLabels : Prop
+  coarseGrainingPreservesAuditBoundary : Prop
+  reproducibilityPreservesClaimBoundary : Prop
+  reproducibilityIsFiniteRecordCompatibility : Prop
+  noProtocolRecoveryClaim : Prop
+  noBenchmarkSuccessClaim : Prop
+  noPredictionSuccessClaim : Prop
+  noFalsificationSuccessClaim : Prop
+  noPhysicalPromotionClaim : Prop
+  noPhysicalValidationClaim : Prop
+  noEmpiricalAdequacyClaim : Prop
+  noObservedCatalogRecoveryClaim : Prop
+  noSimulationOnlyPromotionClaim : Prop
+  noFitOnlyCalibrationClaim : Prop
+  noPhysicalNatureClaim : Prop
+  noUnifiedFieldTheoryClaim : Prop
+
+def PFP006StabilityReproducibilityContract.closed
+    (c : PFP006StabilityReproducibilityContract) : Prop :=
+  c.pfp005Paper14BenchmarkCompatibilityClosed ∧
+  c.finiteStabilityDescriptor ∧
+  c.finiteCoarseGrainingDescriptor ∧
+  c.finiteReproducibilityDescriptor ∧
+  c.stabilityPreservesProtocolLabels ∧
+  c.coarseGrainingPreservesAuditBoundary ∧
+  c.reproducibilityPreservesClaimBoundary ∧
+  c.reproducibilityIsFiniteRecordCompatibility ∧
+  c.noProtocolRecoveryClaim ∧
+  c.noBenchmarkSuccessClaim ∧
+  c.noPredictionSuccessClaim ∧
+  c.noFalsificationSuccessClaim ∧
+  c.noPhysicalPromotionClaim ∧
+  c.noPhysicalValidationClaim ∧
+  c.noEmpiricalAdequacyClaim ∧
+  c.noObservedCatalogRecoveryClaim ∧
+  c.noSimulationOnlyPromotionClaim ∧
+  c.noFitOnlyCalibrationClaim ∧
+  c.noPhysicalNatureClaim ∧
+  c.noUnifiedFieldTheoryClaim
+
+theorem pfp006_stability_reproducibility_closed_from_fields
+    (c : PFP006StabilityReproducibilityContract)
+    (hPFP005 : c.pfp005Paper14BenchmarkCompatibilityClosed)
+    (hStability : c.finiteStabilityDescriptor)
+    (hCoarse : c.finiteCoarseGrainingDescriptor)
+    (hRepro : c.finiteReproducibilityDescriptor)
+    (hLabels : c.stabilityPreservesProtocolLabels)
+    (hAudit : c.coarseGrainingPreservesAuditBoundary)
+    (hClaims : c.reproducibilityPreservesClaimBoundary)
+    (hFiniteCompatibility : c.reproducibilityIsFiniteRecordCompatibility)
+    (hNoRecovery : c.noProtocolRecoveryClaim)
+    (hNoBenchmark : c.noBenchmarkSuccessClaim)
+    (hNoPrediction : c.noPredictionSuccessClaim)
+    (hNoFalsification : c.noFalsificationSuccessClaim)
+    (hNoPromotion : c.noPhysicalPromotionClaim)
+    (hNoValidation : c.noPhysicalValidationClaim)
+    (hNoEmpirical : c.noEmpiricalAdequacyClaim)
+    (hNoObserved : c.noObservedCatalogRecoveryClaim)
+    (hNoSimulation : c.noSimulationOnlyPromotionClaim)
+    (hNoFit : c.noFitOnlyCalibrationClaim)
+    (hNoNature : c.noPhysicalNatureClaim)
+    (hNoUFT : c.noUnifiedFieldTheoryClaim) :
+    PFP006StabilityReproducibilityContract.closed c := by
+  unfold PFP006StabilityReproducibilityContract.closed
+  exact ⟨hPFP005, hStability, hCoarse, hRepro, hLabels, hAudit,
+    hClaims, hFiniteCompatibility, hNoRecovery, hNoBenchmark,
+    hNoPrediction, hNoFalsification, hNoPromotion, hNoValidation,
+    hNoEmpirical, hNoObserved, hNoSimulation, hNoFit, hNoNature, hNoUFT⟩
+
+def pfp006CanonicalStabilityReproducibilityContract :
+    PFP006StabilityReproducibilityContract :=
+  {
+    pfp005Paper14BenchmarkCompatibilityClosed :=
+      PFP005Paper14BenchmarkCompatibilityContract.closed
+        pfp005CanonicalPaper14BenchmarkCompatibilityContract,
+    finiteStabilityDescriptor := True,
+    finiteCoarseGrainingDescriptor := True,
+    finiteReproducibilityDescriptor := True,
+    stabilityPreservesProtocolLabels := True,
+    coarseGrainingPreservesAuditBoundary := True,
+    reproducibilityPreservesClaimBoundary := True,
+    reproducibilityIsFiniteRecordCompatibility := True,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noObservedCatalogRecoveryClaim := True,
+    noSimulationOnlyPromotionClaim := True,
+    noFitOnlyCalibrationClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem pfp006_canonical_stability_reproducibility_closed :
+    PFP006StabilityReproducibilityContract.closed
+      pfp006CanonicalStabilityReproducibilityContract := by
+  unfold PFP006StabilityReproducibilityContract.closed
+  unfold pfp006CanonicalStabilityReproducibilityContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -798,6 +913,47 @@ theorem paper15_pfp005_skeleton_does_not_close_prediction_falsification_protocol
       paper15PFP005SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15PFP005SkeletonContract
+  simp
+
+def paper15PFP006SkeletonContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    pfp005Paper14BenchmarkCompatibilityClosed :=
+      PFP005Paper14BenchmarkCompatibilityContract.closed
+        pfp005CanonicalPaper14BenchmarkCompatibilityContract,
+    pfp006StabilityReproducibilityClosed :=
+      PFP006StabilityReproducibilityContract.closed
+        pfp006CanonicalStabilityReproducibilityContract,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed := False,
+    pfp008FinalConditionalCertificateClosed := False,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp006_skeleton_does_not_close_prediction_falsification_protocols_theorem :
+    ¬ Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15PFP006SkeletonContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15PFP006SkeletonContract
   simp
 
 end FiniteCapacity

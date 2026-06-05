@@ -27,6 +27,8 @@ pub const PAPER15_PFP004_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp004-thresholds";
 pub const PAPER15_PFP005_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp005-paper14-compat";
+pub const PAPER15_PFP006_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp006-stability";
 pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -436,6 +438,66 @@ impl PFP005Paper14BenchmarkCompatibility {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP006StabilityReproducibility {
+    pub compatibility_record: PFP005Paper14BenchmarkCompatibility,
+    pub stability_descriptor: &'static str,
+    pub coarse_graining_descriptor: &'static str,
+    pub reproducibility_descriptor: &'static str,
+    pub stability_preserves_protocol_labels: bool,
+    pub coarse_graining_preserves_audit_boundary: bool,
+    pub reproducibility_preserves_claim_boundary: bool,
+    pub reproducibility_is_finite_record_compatibility: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP006StabilityReproducibility {
+    pub const fn canonical() -> Self {
+        Self {
+            compatibility_record: PFP005Paper14BenchmarkCompatibility::canonical(),
+            stability_descriptor: "finite-stability-descriptor",
+            coarse_graining_descriptor: "coarse-graining-audit-preserving",
+            reproducibility_descriptor: "finite-record-reproducibility",
+            stability_preserves_protocol_labels: true,
+            coarse_graining_preserves_audit_boundary: true,
+            reproducibility_preserves_claim_boundary: true,
+            reproducibility_is_finite_record_compatibility: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn stability_labels(&self) -> [&'static str; 3] {
+        [
+            self.stability_descriptor,
+            self.coarse_graining_descriptor,
+            self.reproducibility_descriptor,
+        ]
+    }
+
+    pub fn all_stability_labels_are_bounded(&self) -> bool {
+        self.stability_labels()
+            .into_iter()
+            .all(is_bounded_protocol_label)
+    }
+
+    pub fn closes_pfp006(&self) -> bool {
+        self.compatibility_record.closes_pfp005()
+            && self.all_stability_labels_are_bounded()
+            && self.stability_preserves_protocol_labels
+            && self.coarse_graining_preserves_audit_boundary
+            && self.reproducibility_preserves_claim_boundary
+            && self.reproducibility_is_finite_record_compatibility
+            && !self.claim_boundary.benchmark_success_claim
+            && !self.claim_boundary.prediction_success_claim
+            && !self.claim_boundary.falsification_success_claim
+            && !self.claim_boundary.physical_validation_claim
+            && !self.claim_boundary.empirical_adequacy_claim
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -519,6 +581,20 @@ impl Paper15SkeletonCertificate {
         }
     }
 
+    pub const fn pfp006_stability_only() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
+            pfp003_prediction_target_regime_closed: true,
+            pfp004_falsification_threshold_closed: true,
+            pfp005_paper14_benchmark_compatibility_closed: true,
+            pfp006_stability_reproducibility_closed: true,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: false,
+            pfp008_final_conditional_certificate_closed: false,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
     pub fn closes_paper15_theorem(&self) -> bool {
         self.pfp001_upstream_binding_closed
             && self.pfp002_finite_protocol_record_closed
@@ -551,5 +627,5 @@ pub fn is_bounded_protocol_label(value: &str) -> bool {
 }
 
 pub fn active_obligation() -> &'static str {
-    "PFP-006"
+    "PFP-007"
 }

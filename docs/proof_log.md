@@ -42,3 +42,11 @@
   promotion, simulation-only promotion, fit-only calibration, physical nature
   realization, or unified-field promotion.
 - Recorded `PFP-006` as the active next obligation.
+- Closed `PFP-006` by defining finite stability, coarse-graining, and
+  reproducibility descriptors tied to closed `PFP-005` compatibility rows.
+- Added Rust and Lean guards that reproducibility means finite-record
+  compatibility preserving labels, audit rows, and claim boundaries, not
+  reproduced empirical success, validation, benchmark success, prediction
+  success, falsification success, physical promotion, physical nature
+  realization, or unified-field promotion.
+- Recorded `PFP-007` as the active next obligation.

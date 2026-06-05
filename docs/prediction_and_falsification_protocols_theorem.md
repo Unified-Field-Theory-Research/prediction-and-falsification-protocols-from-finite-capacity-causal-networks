@@ -52,15 +52,19 @@ Closed boundary for `PFP-002`:
 - `PFP-005`: Paper 14 benchmark compatibility without benchmark, prediction,
   or falsification success, tied to the frozen Paper 14 commit, formal
   endpoint, and final conditional certificate as schema alignment only.
+- `PFP-006`: protocol stability, coarse-graining, and reproducibility behavior
+  as finite-record compatibility preserving labels, audit rows, and claim
+  boundaries, without reproduced empirical success, validation, benchmark
+  success, prediction success, falsification success, physical promotion,
+  physical nature realization, or unified-field promotion.
 
 ## Active Rung
 
-- `PFP-006`: protocol stability, coarse-graining, and reproducibility behavior
+- `PFP-007`: no-hidden-promotion, validation, prediction, or falsification
+  success import audit
 
 ## Planned Rungs
 
-- `PFP-007`: no-hidden-promotion, validation, prediction, or falsification
-  success import audit
 - `PFP-008`: final conditional certificate
 
 ## Residual Risk
