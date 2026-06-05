@@ -18,17 +18,19 @@
   prediction success, physical validation, empirical adequacy,
   simulation-only promotion, fit-only calibration, physical promotion, or
   unified-field promotion.
+- `PFP-005`: Paper 14 benchmark compatibility as finite schema alignment only,
+  without claiming benchmark, prediction, falsification, validation, physical
+  promotion, or unified-field success.
 
 ## Active
 
-- `PFP-005`: Define compatibility with Paper 14 benchmark rows without
-  claiming benchmark, prediction, falsification, validation, physical
-  promotion, or unified-field success.
+- `PFP-006`: Define protocol stability, coarse-graining, and reproducibility
+  behavior without importing reproduced empirical success, validation,
+  benchmark success, prediction success, falsification success, physical
+  promotion, or unified-field promotion.
 
 ## Planned
 
-- `PFP-006`: Define protocol stability, coarse-graining, and reproducibility
-  behavior.
 - `PFP-007`: Audit for hidden physical-promotion, validation, prediction, or
   falsification-success imports.
 - `PFP-008`: Assemble the final conditional prediction-and-falsification

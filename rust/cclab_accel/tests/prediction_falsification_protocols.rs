@@ -4,9 +4,10 @@ use std::path::{Path, PathBuf};
 use cclab_accel::{
     active_obligation, is_bounded_protocol_label, paper15_skeleton_marker, PFP001UpstreamBinding,
     PFP002FiniteProtocolRecord, PFP003PredictionTargetRegimeDescriptor,
-    PFP004FalsificationThresholdDescriptor, Paper15ClaimBoundary, Paper15SkeletonCertificate,
-    PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT, PAPER14_FROZEN_COMMIT,
-    PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER, PAPER15_PFP004_MARKER,
+    PFP004FalsificationThresholdDescriptor, PFP005Paper14BenchmarkCompatibility,
+    Paper15ClaimBoundary, Paper15SkeletonCertificate, PAPER14_FINAL_CERTIFICATE,
+    PAPER14_FORMAL_ENDPOINT, PAPER14_FROZEN_COMMIT, PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER,
+    PAPER15_PFP004_MARKER, PAPER15_PFP005_MARKER,
 };
 
 fn repo_root() -> PathBuf {
@@ -216,6 +217,61 @@ fn pfp004_skeleton_still_keeps_final_theorem_open() {
 }
 
 #[test]
+fn pfp005_defines_paper14_compatibility_without_benchmark_success() {
+    let compatibility = PFP005Paper14BenchmarkCompatibility::canonical();
+    assert!(compatibility.closes_pfp005());
+    assert!(compatibility.threshold_record.closes_pfp004());
+    assert!(compatibility.references_frozen_paper14_certificate());
+    assert_eq!(compatibility.paper14_frozen_commit, PAPER14_FROZEN_COMMIT);
+    assert_eq!(
+        compatibility.paper14_formal_endpoint,
+        PAPER14_FORMAL_ENDPOINT
+    );
+    assert_eq!(
+        compatibility.paper14_final_certificate,
+        PAPER14_FINAL_CERTIFICATE
+    );
+    assert!(compatibility.compatibility_is_schema_alignment_only);
+    assert_eq!(
+        PAPER15_PFP005_MARKER,
+        "paper15-prediction-falsification-protocols-pfp005-paper14-compat"
+    );
+}
+
+#[test]
+fn pfp005_rejects_benchmark_success_or_bad_paper14_binding() {
+    let mut benchmark_success = PFP005Paper14BenchmarkCompatibility::canonical();
+    benchmark_success.claim_boundary = Paper15ClaimBoundary {
+        benchmark_success_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!benchmark_success.closes_pfp005());
+
+    let mut prediction_success = PFP005Paper14BenchmarkCompatibility::canonical();
+    prediction_success.claim_boundary = Paper15ClaimBoundary {
+        prediction_success_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!prediction_success.closes_pfp005());
+
+    let mut bad_binding = PFP005Paper14BenchmarkCompatibility::canonical();
+    bad_binding.paper14_frozen_commit = "not-a-frozen-paper14-commit";
+    assert!(!bad_binding.closes_pfp005());
+}
+
+#[test]
+fn pfp005_skeleton_still_keeps_final_theorem_open() {
+    let skeleton = Paper15SkeletonCertificate::pfp005_benchmark_compatibility_only();
+    assert!(skeleton.pfp001_upstream_binding_closed);
+    assert!(skeleton.pfp002_finite_protocol_record_closed);
+    assert!(skeleton.pfp003_prediction_target_regime_closed);
+    assert!(skeleton.pfp004_falsification_threshold_closed);
+    assert!(skeleton.pfp005_paper14_benchmark_compatibility_closed);
+    assert!(!skeleton.pfp006_stability_reproducibility_closed);
+    assert!(!skeleton.closes_paper15_theorem());
+}
+
+#[test]
 fn upstream_json_records_paper14_certificate_and_nonpromotion() {
     let upstream = read_repo_file("UPSTREAM-PAPERS.json");
     assert!(upstream.contains(PAPER14_FROZEN_COMMIT));
@@ -230,17 +286,18 @@ fn upstream_json_records_paper14_certificate_and_nonpromotion() {
 }
 
 #[test]
-fn docs_keep_pfp005_active_and_success_claims_false() {
+fn docs_keep_pfp006_active_and_success_claims_false() {
     let state = read_repo_file("GPD/state.json");
     let state_md = read_repo_file("GPD/STATE.md");
     let theorem = read_repo_file("docs/prediction_and_falsification_protocols_theorem.md");
 
-    assert_eq!(active_obligation(), "PFP-005");
-    assert!(state.contains("\"active_obligation\": \"PFP-005\""));
+    assert_eq!(active_obligation(), "PFP-006");
+    assert!(state.contains("\"active_obligation\": \"PFP-006\""));
     assert!(state.contains("\"prediction_and_falsification_protocols_theorem_closed\": false"));
     assert!(state.contains("\"pfp002_finite_protocol_record_closed\": true"));
     assert!(state.contains("\"pfp003_prediction_target_regime_closed\": true"));
     assert!(state.contains("\"pfp004_falsification_threshold_closed\": true"));
+    assert!(state.contains("\"pfp005_paper14_benchmark_compatibility_closed\": true"));
     assert!(state.contains("\"protocol_recovery_claim\": false"));
     assert!(state.contains("\"benchmark_success_claim\": false"));
     assert!(state.contains("\"prediction_success_claim\": false"));
@@ -248,8 +305,8 @@ fn docs_keep_pfp005_active_and_success_claims_false() {
     assert!(state.contains("\"physical_promotion_claim\": false"));
     assert!(state.contains("\"physical_validation_claim\": false"));
     assert!(state.contains("\"empirical_adequacy_claim\": false"));
-    assert!(state_md.contains("`PFP-005`: Define compatibility with Paper 14"));
-    assert!(theorem.contains("PFP-005"));
+    assert!(state_md.contains("`PFP-006`: Define protocol stability"));
+    assert!(theorem.contains("PFP-006"));
     assert!(theorem.contains("no unified field theory claim"));
 }
 

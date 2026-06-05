@@ -2,20 +2,21 @@
 
 ## Active
 
-### PFP-005
+### PFP-006
 
-Define compatibility with Paper 14 benchmark rows without claiming benchmark,
-prediction, or falsification success.
+Define protocol stability, coarse-graining, and reproducibility behavior for
+finite protocol rows.
 
 Acceptance criteria:
 
-- compatibility references the frozen Paper 14 commit, formal endpoint, and
-  final conditional certificate
-- compatibility rows are finite and tied to closed `PFP-004` threshold records
-- compatibility means schema alignment only, not benchmark success,
-  prediction success, falsification success, empirical validation, physical
-  promotion, or unified-field promotion
-- Rust and Lean guards show `PFP-005` can close while the full Paper 15 theorem
+- stability descriptors are finite and tied to closed `PFP-005` compatibility
+  rows
+- coarse-graining and reproducibility descriptors preserve protocol labels,
+  audit rows, and claim boundaries
+- reproducibility behavior is compatibility of finite records, not reproduced
+  empirical success, validation, benchmark success, prediction success, or
+  falsification success
+- Rust and Lean guards show `PFP-006` can close while the full Paper 15 theorem
   remains open
 
 ## Closed
@@ -25,3 +26,4 @@ Acceptance criteria:
 - `PFP-003`: Finite prediction target, observable, and regime descriptors.
 - `PFP-004`: Finite falsification threshold and rejection-condition
   descriptors.
+- `PFP-005`: Paper 14 benchmark compatibility as schema alignment only.

@@ -33,3 +33,12 @@
   simulation-only promotion, physical promotion, physical nature realization,
   or unified-field promotion.
 - Recorded `PFP-005` as the active next obligation.
+- Closed `PFP-005` by defining Paper 14 benchmark compatibility rows bound to
+  the frozen Paper 14 commit, formal endpoint, and final conditional
+  certificate.
+- Added Rust and Lean guards that compatibility is finite schema alignment
+  only and does not import benchmark success, prediction success,
+  falsification success, protocol recovery, empirical validation, physical
+  promotion, simulation-only promotion, fit-only calibration, physical nature
+  realization, or unified-field promotion.
+- Recorded `PFP-006` as the active next obligation.

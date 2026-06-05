@@ -43,8 +43,9 @@ upstream binding and claim boundary through the closed Paper 14 result.
 bounded, auditable, non-promoting interface rows. `PFP-003` defines finite
 prediction target, observable, and regime descriptors. `PFP-004` defines
 finite falsification threshold and rejection-condition descriptors. `PFP-005`
-is the active next obligation: define Paper 14 benchmark compatibility without
-benchmark, prediction, or falsification success.
+defines Paper 14 benchmark compatibility without benchmark, prediction, or
+falsification success. `PFP-006` is the active next obligation: define
+protocol stability, coarse-graining, and reproducibility behavior.
 
 This does not prove protocol recovery, benchmark success, prediction success,
 falsification success, physical promotion, physical validation, empirical

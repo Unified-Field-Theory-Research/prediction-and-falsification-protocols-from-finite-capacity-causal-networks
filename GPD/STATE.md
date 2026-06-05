@@ -6,7 +6,8 @@ Paper 15 is open. `PFP-001` is closed as an upstream-binding and
 claim-boundary scaffold through the frozen Paper 14 result, and `PFP-002`
 is closed as a finite protocol-record contract. `PFP-003` is closed as finite
 prediction target, observable, and regime descriptors. `PFP-004` is closed as
-finite falsification threshold and rejection-condition descriptors:
+finite falsification threshold and rejection-condition descriptors. `PFP-005`
+is closed as Paper 14 benchmark compatibility schema alignment:
 
 - Paper 14 commit:
   `ad4f876a1699874cd6efd7fe73d318e64f5bbe19`
@@ -20,16 +21,16 @@ closed.
 
 ## Active Obligation
 
-`PFP-005`: Define compatibility with Paper 14 benchmark rows without claiming
-benchmark, prediction, or falsification success.
+`PFP-006`: Define protocol stability, coarse-graining, and reproducibility
+behavior.
 
-Compatibility rows must remain bounded, auditable, and non-promoting. They
-must not import continuum quantum field theory, external Hilbert bundles,
-matter fields, gauge fields, physical particle excitations, physical Standard
-Model content, physical validation, empirical adequacy, benchmark success,
-prediction success, falsification success, observed-catalog recovery,
-simulation-only promotion, fit-only calibration, physical nature realization,
-or a unified field theory.
+Stability, coarse-graining, and reproducibility descriptors must remain
+bounded, auditable, and non-promoting. They must not import continuum quantum
+field theory, external Hilbert bundles, matter fields, gauge fields, physical
+particle excitations, physical Standard Model content, physical validation,
+empirical adequacy, benchmark success, prediction success, falsification
+success, observed-catalog recovery, simulation-only promotion, fit-only
+calibration, physical nature realization, or a unified field theory.
 
 ## Closed Obligations
 
@@ -38,6 +39,7 @@ or a unified field theory.
 - `PFP-003`: Finite prediction target, observable, and regime descriptors.
 - `PFP-004`: Finite falsification threshold and rejection-condition
   descriptors.
+- `PFP-005`: Paper 14 benchmark compatibility as schema alignment only.
 
 ## Claim Boundary
 

@@ -25,6 +25,8 @@ pub const PAPER15_PFP003_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp003-descriptors";
 pub const PAPER15_PFP004_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp004-thresholds";
+pub const PAPER15_PFP005_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp005-paper14-compat";
 pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -385,6 +387,55 @@ impl PFP004FalsificationThresholdDescriptor {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP005Paper14BenchmarkCompatibility {
+    pub threshold_record: PFP004FalsificationThresholdDescriptor,
+    pub paper14_frozen_commit: &'static str,
+    pub paper14_formal_endpoint: &'static str,
+    pub paper14_final_certificate: &'static str,
+    pub finite_compatibility_row: bool,
+    pub compatibility_linked_to_threshold_record: bool,
+    pub compatibility_is_schema_alignment_only: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP005Paper14BenchmarkCompatibility {
+    pub const fn canonical() -> Self {
+        Self {
+            threshold_record: PFP004FalsificationThresholdDescriptor::canonical(),
+            paper14_frozen_commit: PAPER14_FROZEN_COMMIT,
+            paper14_formal_endpoint: PAPER14_FORMAL_ENDPOINT,
+            paper14_final_certificate: PAPER14_FINAL_CERTIFICATE,
+            finite_compatibility_row: true,
+            compatibility_linked_to_threshold_record: true,
+            compatibility_is_schema_alignment_only: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn references_frozen_paper14_certificate(&self) -> bool {
+        self.paper14_frozen_commit == PAPER14_FROZEN_COMMIT
+            && is_sha1_hex(self.paper14_frozen_commit)
+            && self.paper14_formal_endpoint == PAPER14_FORMAL_ENDPOINT
+            && self.paper14_final_certificate == PAPER14_FINAL_CERTIFICATE
+    }
+
+    pub fn closes_pfp005(&self) -> bool {
+        self.threshold_record.closes_pfp004()
+            && self.references_frozen_paper14_certificate()
+            && self.finite_compatibility_row
+            && self.compatibility_linked_to_threshold_record
+            && self.compatibility_is_schema_alignment_only
+            && !self.claim_boundary.protocol_recovery_claim
+            && !self.claim_boundary.benchmark_success_claim
+            && !self.claim_boundary.prediction_success_claim
+            && !self.claim_boundary.falsification_success_claim
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -454,6 +505,20 @@ impl Paper15SkeletonCertificate {
         }
     }
 
+    pub const fn pfp005_benchmark_compatibility_only() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
+            pfp003_prediction_target_regime_closed: true,
+            pfp004_falsification_threshold_closed: true,
+            pfp005_paper14_benchmark_compatibility_closed: true,
+            pfp006_stability_reproducibility_closed: false,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: false,
+            pfp008_final_conditional_certificate_closed: false,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
     pub fn closes_paper15_theorem(&self) -> bool {
         self.pfp001_upstream_binding_closed
             && self.pfp002_finite_protocol_record_closed
@@ -486,5 +551,5 @@ pub fn is_bounded_protocol_label(value: &str) -> bool {
 }
 
 pub fn active_obligation() -> &'static str {
-    "PFP-005"
+    "PFP-006"
 }

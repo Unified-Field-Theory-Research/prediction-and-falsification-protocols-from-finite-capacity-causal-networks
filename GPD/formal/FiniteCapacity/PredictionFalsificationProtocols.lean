@@ -476,6 +476,113 @@ theorem pfp004_canonical_falsification_threshold_closed :
   simp
 
 /--
+`PFP-005` records compatibility with the frozen Paper 14 discriminating
+benchmark certificate as finite schema alignment only. It consumes the Paper
+14 commit, formal endpoint, and final conditional certificate as references,
+but does not assert benchmark success, prediction success, falsification
+success, empirical validation, or physical promotion.
+-/
+structure PFP005Paper14BenchmarkCompatibilityContract where
+  pfp004FalsificationThresholdClosed : Prop
+  paper14FrozenCommitReferenced : Prop
+  paper14FormalEndpointReferenced : Prop
+  paper14FinalCertificateReferenced : Prop
+  finiteCompatibilityRow : Prop
+  compatibilityLinkedToThresholdRecord : Prop
+  compatibilityIsSchemaAlignmentOnly : Prop
+  noProtocolRecoveryClaim : Prop
+  noBenchmarkSuccessClaim : Prop
+  noPredictionSuccessClaim : Prop
+  noFalsificationSuccessClaim : Prop
+  noPhysicalPromotionClaim : Prop
+  noPhysicalValidationClaim : Prop
+  noEmpiricalAdequacyClaim : Prop
+  noSimulationOnlyPromotionClaim : Prop
+  noFitOnlyCalibrationClaim : Prop
+  noPhysicalNatureClaim : Prop
+  noUnifiedFieldTheoryClaim : Prop
+
+def PFP005Paper14BenchmarkCompatibilityContract.closed
+    (c : PFP005Paper14BenchmarkCompatibilityContract) : Prop :=
+  c.pfp004FalsificationThresholdClosed ∧
+  c.paper14FrozenCommitReferenced ∧
+  c.paper14FormalEndpointReferenced ∧
+  c.paper14FinalCertificateReferenced ∧
+  c.finiteCompatibilityRow ∧
+  c.compatibilityLinkedToThresholdRecord ∧
+  c.compatibilityIsSchemaAlignmentOnly ∧
+  c.noProtocolRecoveryClaim ∧
+  c.noBenchmarkSuccessClaim ∧
+  c.noPredictionSuccessClaim ∧
+  c.noFalsificationSuccessClaim ∧
+  c.noPhysicalPromotionClaim ∧
+  c.noPhysicalValidationClaim ∧
+  c.noEmpiricalAdequacyClaim ∧
+  c.noSimulationOnlyPromotionClaim ∧
+  c.noFitOnlyCalibrationClaim ∧
+  c.noPhysicalNatureClaim ∧
+  c.noUnifiedFieldTheoryClaim
+
+theorem pfp005_paper14_benchmark_compatibility_closed_from_fields
+    (c : PFP005Paper14BenchmarkCompatibilityContract)
+    (hPFP004 : c.pfp004FalsificationThresholdClosed)
+    (hCommit : c.paper14FrozenCommitReferenced)
+    (hEndpoint : c.paper14FormalEndpointReferenced)
+    (hCertificate : c.paper14FinalCertificateReferenced)
+    (hFinite : c.finiteCompatibilityRow)
+    (hLinked : c.compatibilityLinkedToThresholdRecord)
+    (hSchemaOnly : c.compatibilityIsSchemaAlignmentOnly)
+    (hNoRecovery : c.noProtocolRecoveryClaim)
+    (hNoBenchmark : c.noBenchmarkSuccessClaim)
+    (hNoPrediction : c.noPredictionSuccessClaim)
+    (hNoFalsification : c.noFalsificationSuccessClaim)
+    (hNoPromotion : c.noPhysicalPromotionClaim)
+    (hNoValidation : c.noPhysicalValidationClaim)
+    (hNoEmpirical : c.noEmpiricalAdequacyClaim)
+    (hNoSimulation : c.noSimulationOnlyPromotionClaim)
+    (hNoFit : c.noFitOnlyCalibrationClaim)
+    (hNoNature : c.noPhysicalNatureClaim)
+    (hNoUFT : c.noUnifiedFieldTheoryClaim) :
+    PFP005Paper14BenchmarkCompatibilityContract.closed c := by
+  unfold PFP005Paper14BenchmarkCompatibilityContract.closed
+  exact ⟨hPFP004, hCommit, hEndpoint, hCertificate, hFinite, hLinked,
+    hSchemaOnly, hNoRecovery, hNoBenchmark, hNoPrediction,
+    hNoFalsification, hNoPromotion, hNoValidation, hNoEmpirical,
+    hNoSimulation, hNoFit, hNoNature, hNoUFT⟩
+
+def pfp005CanonicalPaper14BenchmarkCompatibilityContract :
+    PFP005Paper14BenchmarkCompatibilityContract :=
+  {
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    paper14FrozenCommitReferenced := True,
+    paper14FormalEndpointReferenced := True,
+    paper14FinalCertificateReferenced := True,
+    finiteCompatibilityRow := True,
+    compatibilityLinkedToThresholdRecord := True,
+    compatibilityIsSchemaAlignmentOnly := True,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noSimulationOnlyPromotionClaim := True,
+    noFitOnlyCalibrationClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem pfp005_canonical_paper14_benchmark_compatibility_closed :
+    PFP005Paper14BenchmarkCompatibilityContract.closed
+      pfp005CanonicalPaper14BenchmarkCompatibilityContract := by
+  unfold PFP005Paper14BenchmarkCompatibilityContract.closed
+  unfold pfp005CanonicalPaper14BenchmarkCompatibilityContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -652,6 +759,45 @@ theorem paper15_pfp004_skeleton_does_not_close_prediction_falsification_protocol
       paper15PFP004SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15PFP004SkeletonContract
+  simp
+
+def paper15PFP005SkeletonContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    pfp005Paper14BenchmarkCompatibilityClosed :=
+      PFP005Paper14BenchmarkCompatibilityContract.closed
+        pfp005CanonicalPaper14BenchmarkCompatibilityContract,
+    pfp006StabilityReproducibilityClosed := False,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed := False,
+    pfp008FinalConditionalCertificateClosed := False,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp005_skeleton_does_not_close_prediction_falsification_protocols_theorem :
+    ¬ Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15PFP005SkeletonContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15PFP005SkeletonContract
   simp
 
 end FiniteCapacity
