@@ -6,6 +6,9 @@
     "make lean-build"
   ],
   "formal_module": "FiniteCapacity.PredictionFalsificationProtocols",
+  "formal_endpoint": "paper15_pfp008_final_conditional_certificate_closes_prediction_falsification_protocols_theorem",
   "rust_test": "rust/cclab_accel/tests/prediction_falsification_protocols.rs",
-  "non_promotion_boundary_required": true
+  "state_file": "GPD/state.json",
+  "non_promotion_boundary_required": true,
+  "theorem_status": "closed_conditional_non_promoting"
 }

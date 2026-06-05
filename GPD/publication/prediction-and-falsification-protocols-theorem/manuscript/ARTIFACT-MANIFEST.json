@@ -2,8 +2,11 @@
   "schema_version": 1,
   "paper": 15,
   "title": "Prediction And Falsification Protocols From Finite-Capacity Causal Networks",
+  "status": "closed_conditional_non_promoting",
+  "canonical_proof": "paper15_pfp008_final_conditional_certificate_closes_prediction_falsification_protocols_theorem",
   "artifacts": [
     "prediction_and_falsification_protocols_theorem.tex",
+    "prediction_and_falsification_protocols_theorem.pdf",
     "PAPER-CONFIG.json",
     "reproducibility-manifest.json"
   ],
@@ -15,6 +18,9 @@
     "physical_promotion_claim": false,
     "physical_validation_claim": false,
     "empirical_adequacy_claim": false,
+    "observed_catalog_recovery_claim": false,
+    "simulation_only_promotion": false,
+    "fit_only_calibration_claim": false,
     "physical_nature_claim": false,
     "unified_field_theory_claim": false
   }

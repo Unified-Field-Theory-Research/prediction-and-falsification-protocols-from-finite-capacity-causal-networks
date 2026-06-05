@@ -1,5 +1,9 @@
 \documentclass{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
 
 \title{Prediction And Falsification Protocols From Finite-Capacity Causal Networks}
 \author{Abraham Greenman}
@@ -8,25 +12,223 @@
 \begin{document}
 \maketitle
 
-\section{Status}
+\begin{abstract}
+This paper closes the Paper 15 prediction-and-falsification protocol theorem
+as a conditional, finite, network-native interface theorem downstream of the
+closed Paper 14 discriminating benchmarks certificate. The result constructs
+finite protocol records, target and regime descriptors, threshold and
+rejection-condition descriptors, Paper 14 compatibility rows, stability and
+reproducibility descriptors, and a fail-closed no-hidden-promotion audit. The
+final certificate closes only this finite protocol-structure theorem. It does
+not assert protocol recovery, benchmark success, prediction success,
+falsification success, physical validation, empirical adequacy, physical
+promotion, physical nature realization, or a unified field theory.
+\end{abstract}
 
-This is the Paper 15 manuscript scaffold. The current closed rung is PFP-001:
-upstream binding and claim-boundary preservation through the frozen Paper 14
-final conditional discriminating benchmarks certificate.
+\section{Scope}
+
+Paper 15 starts from the frozen Paper 14 conditional discriminating benchmarks
+certificate:
+\[
+\texttt{paper14\_dbm008\_final\_conditional\_certificate\_closes\_discriminating\_benchmarks\_theorem}.
+\]
+The Paper 14 frozen commit is:
+\[
+\texttt{ad4f876a1699874cd6efd7fe73d318e64f5bbe19}.
+\]
+
+The theorem closed here is intentionally local. It says that prediction and
+falsification protocols can be represented as finite, auditable records in the
+finite-capacity causal-network theorem ladder. It does not say that any
+prediction has succeeded, any alternative has been falsified, any benchmark
+has succeeded, or any physical theory has been validated.
 
 \section{Claim Boundary}
 
-This manuscript does not prove protocol recovery, benchmark success,
-prediction success, falsification success, physical promotion, physical
-validation, empirical adequacy, observed particle catalog recovery, physical
-Standard Model recovery, physical particle excitation recovery, physical
-matter-field recovery, physical gauge-field recovery, physical quantum
-dynamics, continuum quantum field theory, physical nature realization, or a
-unified field theory.
+The following claims remain false in this paper:
 
-\section{Next Obligation}
+\begin{itemize}[leftmargin=*]
+\item protocol recovery;
+\item benchmark success;
+\item prediction success;
+\item falsification success;
+\item physical promotion;
+\item physical validation;
+\item empirical adequacy;
+\item observed-catalog recovery;
+\item simulation-only promotion;
+\item fit-only calibration;
+\item physical nature realization;
+\item unified field theory.
+\end{itemize}
 
-PFP-002 will define finite prediction-and-falsification protocol records as
-bounded, auditable, non-promoting interface rows.
+All constructions below are finite protocol-interface constructions only.
+
+\section{Protocol Records}
+
+\subsection{Finite protocol row}
+
+A Paper 15 protocol row is a finite tuple
+\[
+P=(i,t,o,r,\theta,\rho,a,b,c),
+\]
+where:
+
+\begin{itemize}[leftmargin=*]
+\item \(i\) is a bounded protocol identifier;
+\item \(t\) is a bounded prediction-target label;
+\item \(o\) is a bounded observable label;
+\item \(r\) is a bounded regime label;
+\item \(\theta\) is a bounded threshold label;
+\item \(\rho\) is a bounded rejection-condition label;
+\item \(a\) is a bounded audit-status descriptor;
+\item \(b\) is a Paper 14 compatibility reference;
+\item \(c\) is the non-promotion claim boundary.
+\end{itemize}
+
+The row closes `PFP-002' exactly when the schema is finite, the labels are
+bounded, the row is auditable, Paper 14 compatibility is referenced only as
+schema alignment, and the claim boundary contains no success, recovery,
+validation, promotion, physical-nature, or unified-field claim.
+
+\subsection{Target, observable, and regime descriptors}
+
+`PFP-003' refines a closed protocol row with finite descriptors for prediction
+target, observable, and regime. These descriptors are selection criteria only.
+They do not recover an observed catalog and do not import benchmark success,
+prediction success, falsification success, validation, empirical adequacy,
+physical promotion, or unified-field promotion.
+
+\subsection{Threshold and rejection-condition descriptors}
+
+`PFP-004' adds finite threshold and rejection-condition descriptors. The
+threshold is a finite criterion label. The rejection condition is a
+predeclared protocol rule. Closing this rung does not mean that any rejection
+condition has fired or that any alternative has been falsified.
+
+\subsection{Paper 14 compatibility}
+
+`PFP-005' binds the protocol stack to the frozen Paper 14 commit, formal
+endpoint, and final certificate as finite schema alignment:
+\[
+\texttt{Paper14DiscriminatingBenchmarksTheoremContract.closed}.
+\]
+This compatibility is not benchmark success and is not prediction or
+falsification success.
+
+\subsection{Stability and reproducibility}
+
+`PFP-006' defines finite descriptors for protocol stability, coarse-graining,
+and reproducibility. Reproducibility means compatibility of finite records
+under preserved labels, audit rows, and claim boundaries. It is not reproduced
+empirical success, physical validation, benchmark success, prediction success,
+or falsification success.
+
+\subsection{No-hidden-import audit}
+
+`PFP-007' is a fail-closed audit. It closes only when every route that could
+silently import recovery, benchmark success, prediction success,
+falsification success, validation, empirical adequacy, observed-catalog
+recovery, simulation-only promotion, fit-only calibration, physical-nature
+realization, or unified-field promotion remains explicitly blocked.
+
+\section{Theorem}
+
+\textbf{Paper 15 Prediction And Falsification Protocols Theorem.}
+Assume the closed upstream Paper 14 conditional discriminating benchmarks
+certificate and the closed Paper 15 rungs `PFP-001' through `PFP-007'. Then
+there exists a finite, network-native prediction-and-falsification protocol
+interface whose rows specify bounded protocol identifiers, prediction targets,
+observables, regimes, thresholds, rejection conditions, Paper 14 compatibility
+references, stability and reproducibility descriptors, and audit statuses.
+The interface is closed only as conditional finite protocol structure and
+preserves the no-recovery, no-success, no-validation, no-promotion,
+no-physical-nature, and no-unified-field claim boundary.
+
+\section{Proof}
+
+The Lean formalization defines contracts for each rung:
+
+\begin{itemize}[leftmargin=*]
+\item `PFP001UpstreamBindingContract';
+\item `PFP002FiniteProtocolRecordContract';
+\item `PFP003PredictionTargetRegimeContract';
+\item `PFP004FalsificationThresholdContract';
+\item `PFP005Paper14BenchmarkCompatibilityContract';
+\item `PFP006StabilityReproducibilityContract';
+\item `PFP007NoHiddenPromotionValidationSuccessAuditContract';
+\item `PFP008FinalConditionalCertificateContract'.
+\end{itemize}
+
+Each contract has a `closed' predicate that is the conjunction of its finite
+construction requirements and its claim-boundary guards. For `PFP-001'
+through `PFP-007', canonical contracts close their local rung while the Paper
+15 theorem contract remains open because the final certificate field is still
+false.
+
+The final certificate `PFP-008' consumes the closed canonical contracts for
+`PFP-001' through `PFP-007', adds the final conditional-certificate fields,
+and preserves every no-claim guard. The formal endpoint is:
+
+\begin{flushleft}
+\footnotesize
+\texttt{paper15\_pfp008\_final\_conditional\_certificate\_}\\
+\texttt{closes\_prediction\_falsification\_protocols\_theorem}
+\end{flushleft}
+
+This theorem proves:
+\[
+\texttt{Paper15PredictionFalsificationProtocolsTheoremContract.closed}
+\]
+for the final canonical Paper 15 theorem contract.
+
+\section{Audit Surface}
+
+The Rust audit surface mirrors the Lean contracts with finite record types and
+regression tests. The final Rust certificate closes only when:
+
+\begin{itemize}[leftmargin=*]
+\item the upstream Paper 1--14 binding closes without physical claims;
+\item the `PFP-002' through `PFP-007' audit records close;
+\item the final certificate is explicitly conditional;
+\item all claim boundaries remain false.
+\end{itemize}
+
+The regression suite also checks these failure cases:
+
+\begin{itemize}[leftmargin=*]
+\item overlong labels, unlinked records, and bad Paper 14 bindings;
+\item benchmark-success, prediction-success, and falsification-success
+  leakage;
+\item empirical-validation leakage and unblocked hidden imports;
+\item nonconditional final certificates and unified-field promotion.
+\end{itemize}
+
+\section{Reproducibility}
+
+The repository checks are:
+
+\begin{verbatim}
+make test-fast
+make lean-build
+\end{verbatim}
+
+The final state is recorded in `GPD/state.json' with:
+
+\begin{verbatim}
+"active_obligation": "NONE"
+"prediction_and_falsification_protocols_theorem_closed": true
+"paper15_canonical_proof":
+  "paper15_pfp008_final_conditional_certificate_"
+  "closes_prediction_falsification_protocols_theorem"
+\end{verbatim}
+
+\section{Conclusion}
+
+Paper 15 closes the finite prediction-and-falsification protocol interface
+theorem conditionally. The result is a theorem about finite protocol records
+and their audit boundaries. It is not evidence that predictions succeeded, not
+evidence that alternatives were falsified, not a physical validation result,
+and not a unified field theory claim.
 
 \end{document}

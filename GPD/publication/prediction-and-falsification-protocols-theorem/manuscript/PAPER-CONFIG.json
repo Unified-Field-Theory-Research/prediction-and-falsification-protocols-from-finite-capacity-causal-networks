@@ -3,7 +3,17 @@
   "paper": 15,
   "slug": "prediction-and-falsification-protocols-theorem",
   "title": "Prediction And Falsification Protocols From Finite-Capacity Causal Networks",
-  "active_obligation": "PFP-002",
-  "closed_obligations": ["PFP-001"],
-  "status": "open_non_promoting_scaffold"
+  "active_obligation": "NONE",
+  "closed_obligations": [
+    "PFP-001",
+    "PFP-002",
+    "PFP-003",
+    "PFP-004",
+    "PFP-005",
+    "PFP-006",
+    "PFP-007",
+    "PFP-008"
+  ],
+  "status": "closed_conditional_non_promoting",
+  "canonical_proof": "paper15_pfp008_final_conditional_certificate_closes_prediction_falsification_protocols_theorem"
 }
