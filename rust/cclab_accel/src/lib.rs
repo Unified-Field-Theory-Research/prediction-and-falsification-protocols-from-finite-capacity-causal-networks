@@ -29,6 +29,8 @@ pub const PAPER15_PFP005_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp005-paper14-compat";
 pub const PAPER15_PFP006_MARKER: &str =
     "paper15-prediction-falsification-protocols-pfp006-stability";
+pub const PAPER15_PFP007_MARKER: &str =
+    "paper15-prediction-falsification-protocols-pfp007-hidden-audit";
 pub const FINITE_PROTOCOL_LABEL_MAX_BYTES: usize = 64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -498,6 +500,77 @@ impl PFP006StabilityReproducibility {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct PFP007NoHiddenPromotionAudit {
+    pub stability_record: PFP006StabilityReproducibility,
+    pub finite_audit_row: bool,
+    pub fail_closed_audit: bool,
+    pub all_protocol_routes_audited: bool,
+    pub no_hidden_protocol_recovery_import: bool,
+    pub no_hidden_benchmark_success_import: bool,
+    pub no_hidden_prediction_success_import: bool,
+    pub no_hidden_falsification_success_import: bool,
+    pub no_hidden_physical_promotion_import: bool,
+    pub no_hidden_physical_validation_import: bool,
+    pub no_hidden_empirical_adequacy_import: bool,
+    pub no_hidden_observed_catalog_recovery_import: bool,
+    pub no_hidden_simulation_only_promotion_import: bool,
+    pub no_hidden_fit_only_calibration_import: bool,
+    pub no_hidden_physical_nature_import: bool,
+    pub no_hidden_unified_field_theory_import: bool,
+    pub claim_boundary: Paper15ClaimBoundary,
+}
+
+impl PFP007NoHiddenPromotionAudit {
+    pub const fn canonical() -> Self {
+        Self {
+            stability_record: PFP006StabilityReproducibility::canonical(),
+            finite_audit_row: true,
+            fail_closed_audit: true,
+            all_protocol_routes_audited: true,
+            no_hidden_protocol_recovery_import: true,
+            no_hidden_benchmark_success_import: true,
+            no_hidden_prediction_success_import: true,
+            no_hidden_falsification_success_import: true,
+            no_hidden_physical_promotion_import: true,
+            no_hidden_physical_validation_import: true,
+            no_hidden_empirical_adequacy_import: true,
+            no_hidden_observed_catalog_recovery_import: true,
+            no_hidden_simulation_only_promotion_import: true,
+            no_hidden_fit_only_calibration_import: true,
+            no_hidden_physical_nature_import: true,
+            no_hidden_unified_field_theory_import: true,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
+    pub fn all_hidden_routes_blocked(&self) -> bool {
+        self.no_hidden_protocol_recovery_import
+            && self.no_hidden_benchmark_success_import
+            && self.no_hidden_prediction_success_import
+            && self.no_hidden_falsification_success_import
+            && self.no_hidden_physical_promotion_import
+            && self.no_hidden_physical_validation_import
+            && self.no_hidden_empirical_adequacy_import
+            && self.no_hidden_observed_catalog_recovery_import
+            && self.no_hidden_simulation_only_promotion_import
+            && self.no_hidden_fit_only_calibration_import
+            && self.no_hidden_physical_nature_import
+            && self.no_hidden_unified_field_theory_import
+    }
+
+    pub fn closes_pfp007(&self) -> bool {
+        self.stability_record.closes_pfp006()
+            && self.finite_audit_row
+            && self.fail_closed_audit
+            && self.all_protocol_routes_audited
+            && self.all_hidden_routes_blocked()
+            && self
+                .claim_boundary
+                .all_physical_and_success_claims_remain_false()
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Paper15SkeletonCertificate {
     pub pfp001_upstream_binding_closed: bool,
     pub pfp002_finite_protocol_record_closed: bool,
@@ -595,6 +668,20 @@ impl Paper15SkeletonCertificate {
         }
     }
 
+    pub const fn pfp007_hidden_audit_only() -> Self {
+        Self {
+            pfp001_upstream_binding_closed: true,
+            pfp002_finite_protocol_record_closed: true,
+            pfp003_prediction_target_regime_closed: true,
+            pfp004_falsification_threshold_closed: true,
+            pfp005_paper14_benchmark_compatibility_closed: true,
+            pfp006_stability_reproducibility_closed: true,
+            pfp007_no_hidden_promotion_validation_success_audit_closed: true,
+            pfp008_final_conditional_certificate_closed: false,
+            claim_boundary: Paper15ClaimBoundary::non_promoting(),
+        }
+    }
+
     pub fn closes_paper15_theorem(&self) -> bool {
         self.pfp001_upstream_binding_closed
             && self.pfp002_finite_protocol_record_closed
@@ -627,5 +714,5 @@ pub fn is_bounded_protocol_label(value: &str) -> bool {
 }
 
 pub fn active_obligation() -> &'static str {
-    "PFP-007"
+    "PFP-008"
 }

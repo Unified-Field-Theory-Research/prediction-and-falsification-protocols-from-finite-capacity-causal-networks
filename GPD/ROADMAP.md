@@ -25,17 +25,17 @@
   without importing reproduced empirical success, validation, benchmark
   success, prediction success, falsification success, physical promotion, or
   unified-field promotion.
+- `PFP-007`: No-hidden-promotion, validation, success, recovery, shortcut,
+  physical-nature, or unified-field import audit.
 
 ## Active
 
-- `PFP-007`: Audit for hidden physical-promotion, validation, prediction,
-  falsification, recovery, shortcut, physical-nature, or unified-field
-  imports.
+- `PFP-008`: Assemble the final conditional prediction-and-falsification
+  protocols certificate.
 
 ## Planned
 
-- `PFP-008`: Assemble the final conditional prediction-and-falsification
-  protocols certificate.
+No planned rungs remain after `PFP-008`.
 
 All planned rungs remain conditional and non-promoting unless explicitly
 closed by formal and Rust guards.

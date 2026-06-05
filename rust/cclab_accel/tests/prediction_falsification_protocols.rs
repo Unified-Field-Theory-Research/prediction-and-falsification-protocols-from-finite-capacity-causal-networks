@@ -5,10 +5,10 @@ use cclab_accel::{
     active_obligation, is_bounded_protocol_label, paper15_skeleton_marker, PFP001UpstreamBinding,
     PFP002FiniteProtocolRecord, PFP003PredictionTargetRegimeDescriptor,
     PFP004FalsificationThresholdDescriptor, PFP005Paper14BenchmarkCompatibility,
-    PFP006StabilityReproducibility, Paper15ClaimBoundary, Paper15SkeletonCertificate,
-    PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT, PAPER14_FROZEN_COMMIT,
-    PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER, PAPER15_PFP004_MARKER, PAPER15_PFP005_MARKER,
-    PAPER15_PFP006_MARKER,
+    PFP006StabilityReproducibility, PFP007NoHiddenPromotionAudit, Paper15ClaimBoundary,
+    Paper15SkeletonCertificate, PAPER14_FINAL_CERTIFICATE, PAPER14_FORMAL_ENDPOINT,
+    PAPER14_FROZEN_COMMIT, PAPER15_PFP002_MARKER, PAPER15_PFP003_MARKER, PAPER15_PFP004_MARKER,
+    PAPER15_PFP005_MARKER, PAPER15_PFP006_MARKER, PAPER15_PFP007_MARKER,
 };
 
 fn repo_root() -> PathBuf {
@@ -323,6 +323,53 @@ fn pfp006_skeleton_still_keeps_final_theorem_open() {
 }
 
 #[test]
+fn pfp007_audits_hidden_promotion_validation_success_routes() {
+    let audit = PFP007NoHiddenPromotionAudit::canonical();
+    assert!(audit.closes_pfp007());
+    assert!(audit.stability_record.closes_pfp006());
+    assert!(audit.finite_audit_row);
+    assert!(audit.fail_closed_audit);
+    assert!(audit.all_protocol_routes_audited);
+    assert!(audit.all_hidden_routes_blocked());
+    assert_eq!(
+        PAPER15_PFP007_MARKER,
+        "paper15-prediction-falsification-protocols-pfp007-hidden-audit"
+    );
+}
+
+#[test]
+fn pfp007_rejects_unblocked_hidden_routes_or_promoting_boundary() {
+    let mut hidden_prediction = PFP007NoHiddenPromotionAudit::canonical();
+    hidden_prediction.no_hidden_prediction_success_import = false;
+    assert!(!hidden_prediction.closes_pfp007());
+
+    let mut not_fail_closed = PFP007NoHiddenPromotionAudit::canonical();
+    not_fail_closed.fail_closed_audit = false;
+    assert!(!not_fail_closed.closes_pfp007());
+
+    let mut physical_nature = PFP007NoHiddenPromotionAudit::canonical();
+    physical_nature.claim_boundary = Paper15ClaimBoundary {
+        physical_nature_claim: true,
+        ..Paper15ClaimBoundary::non_promoting()
+    };
+    assert!(!physical_nature.closes_pfp007());
+}
+
+#[test]
+fn pfp007_skeleton_still_keeps_final_theorem_open() {
+    let skeleton = Paper15SkeletonCertificate::pfp007_hidden_audit_only();
+    assert!(skeleton.pfp001_upstream_binding_closed);
+    assert!(skeleton.pfp002_finite_protocol_record_closed);
+    assert!(skeleton.pfp003_prediction_target_regime_closed);
+    assert!(skeleton.pfp004_falsification_threshold_closed);
+    assert!(skeleton.pfp005_paper14_benchmark_compatibility_closed);
+    assert!(skeleton.pfp006_stability_reproducibility_closed);
+    assert!(skeleton.pfp007_no_hidden_promotion_validation_success_audit_closed);
+    assert!(!skeleton.pfp008_final_conditional_certificate_closed);
+    assert!(!skeleton.closes_paper15_theorem());
+}
+
+#[test]
 fn upstream_json_records_paper14_certificate_and_nonpromotion() {
     let upstream = read_repo_file("UPSTREAM-PAPERS.json");
     assert!(upstream.contains(PAPER14_FROZEN_COMMIT));
@@ -337,19 +384,20 @@ fn upstream_json_records_paper14_certificate_and_nonpromotion() {
 }
 
 #[test]
-fn docs_keep_pfp007_active_and_success_claims_false() {
+fn docs_keep_pfp008_active_and_success_claims_false() {
     let state = read_repo_file("GPD/state.json");
     let state_md = read_repo_file("GPD/STATE.md");
     let theorem = read_repo_file("docs/prediction_and_falsification_protocols_theorem.md");
 
-    assert_eq!(active_obligation(), "PFP-007");
-    assert!(state.contains("\"active_obligation\": \"PFP-007\""));
+    assert_eq!(active_obligation(), "PFP-008");
+    assert!(state.contains("\"active_obligation\": \"PFP-008\""));
     assert!(state.contains("\"prediction_and_falsification_protocols_theorem_closed\": false"));
     assert!(state.contains("\"pfp002_finite_protocol_record_closed\": true"));
     assert!(state.contains("\"pfp003_prediction_target_regime_closed\": true"));
     assert!(state.contains("\"pfp004_falsification_threshold_closed\": true"));
     assert!(state.contains("\"pfp005_paper14_benchmark_compatibility_closed\": true"));
     assert!(state.contains("\"pfp006_stability_reproducibility_closed\": true"));
+    assert!(state.contains("\"pfp007_no_hidden_promotion_validation_success_audit_closed\": true"));
     assert!(state.contains("\"protocol_recovery_claim\": false"));
     assert!(state.contains("\"benchmark_success_claim\": false"));
     assert!(state.contains("\"prediction_success_claim\": false"));
@@ -357,8 +405,8 @@ fn docs_keep_pfp007_active_and_success_claims_false() {
     assert!(state.contains("\"physical_promotion_claim\": false"));
     assert!(state.contains("\"physical_validation_claim\": false"));
     assert!(state.contains("\"empirical_adequacy_claim\": false"));
-    assert!(state_md.contains("`PFP-007`: Audit for hidden physical-promotion"));
-    assert!(theorem.contains("PFP-007"));
+    assert!(state_md.contains("`PFP-008`: Assemble the final conditional"));
+    assert!(theorem.contains("PFP-008"));
     assert!(theorem.contains("no unified field theory claim"));
 }
 

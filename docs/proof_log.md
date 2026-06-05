@@ -50,3 +50,10 @@
   success, falsification success, physical promotion, physical nature
   realization, or unified-field promotion.
 - Recorded `PFP-007` as the active next obligation.
+- Closed `PFP-007` by defining a finite fail-closed audit over hidden
+  recovery, benchmark-success, prediction-success, falsification-success,
+  physical-promotion, validation, empirical-adequacy, observed-catalog,
+  simulation-only, fit-only, physical-nature, and unified-field imports.
+- Added Rust and Lean guards that all hidden routes remain blocked and the
+  theorem still does not close until the final conditional certificate.
+- Recorded `PFP-008` as the active next obligation.

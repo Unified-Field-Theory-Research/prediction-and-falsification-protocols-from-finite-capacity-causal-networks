@@ -57,15 +57,17 @@ Closed boundary for `PFP-002`:
   boundaries, without reproduced empirical success, validation, benchmark
   success, prediction success, falsification success, physical promotion,
   physical nature realization, or unified-field promotion.
+- `PFP-007`: no-hidden-promotion, validation, prediction, or falsification
+  success import audit over every recovery, shortcut, physical-nature, and
+  unified-field route.
 
 ## Active Rung
 
-- `PFP-007`: no-hidden-promotion, validation, prediction, or falsification
-  success import audit
+- `PFP-008`: final conditional certificate
 
 ## Planned Rungs
 
-- `PFP-008`: final conditional certificate
+No planned rungs remain after the active final certificate.
 
 ## Residual Risk
 

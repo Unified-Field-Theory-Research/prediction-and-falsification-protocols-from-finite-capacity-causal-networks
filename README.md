@@ -45,9 +45,9 @@ prediction target, observable, and regime descriptors. `PFP-004` defines
 finite falsification threshold and rejection-condition descriptors. `PFP-005`
 defines Paper 14 benchmark compatibility without benchmark, prediction, or
 falsification success. `PFP-006` defines protocol stability, coarse-graining,
-and reproducibility behavior. `PFP-007` is the active next obligation: audit
-for hidden promotion, validation, prediction-success, or
-falsification-success imports.
+and reproducibility behavior. `PFP-007` audits for hidden promotion,
+validation, prediction-success, or falsification-success imports. `PFP-008`
+is the active next obligation: assemble the final conditional certificate.
 
 This does not prove protocol recovery, benchmark success, prediction success,
 falsification success, physical promotion, physical validation, empirical

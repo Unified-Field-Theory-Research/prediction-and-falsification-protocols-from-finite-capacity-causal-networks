@@ -698,6 +698,105 @@ theorem pfp006_canonical_stability_reproducibility_closed :
   simp
 
 /--
+`PFP-007` is the no-hidden-import audit. It checks that the closed protocol
+stack has no path that silently imports recovery, benchmark success,
+prediction success, falsification success, validation, empirical adequacy,
+physical promotion, shortcut promotion, physical-nature realization, or a
+unified-field claim.
+-/
+structure PFP007NoHiddenPromotionValidationSuccessAuditContract where
+  pfp006StabilityReproducibilityClosed : Prop
+  finiteAuditRow : Prop
+  failClosedAudit : Prop
+  allProtocolRoutesAudited : Prop
+  noHiddenProtocolRecoveryImport : Prop
+  noHiddenBenchmarkSuccessImport : Prop
+  noHiddenPredictionSuccessImport : Prop
+  noHiddenFalsificationSuccessImport : Prop
+  noHiddenPhysicalPromotionImport : Prop
+  noHiddenPhysicalValidationImport : Prop
+  noHiddenEmpiricalAdequacyImport : Prop
+  noHiddenObservedCatalogRecoveryImport : Prop
+  noHiddenSimulationOnlyPromotionImport : Prop
+  noHiddenFitOnlyCalibrationImport : Prop
+  noHiddenPhysicalNatureImport : Prop
+  noHiddenUnifiedFieldTheoryImport : Prop
+
+def PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+    (c : PFP007NoHiddenPromotionValidationSuccessAuditContract) : Prop :=
+  c.pfp006StabilityReproducibilityClosed ∧
+  c.finiteAuditRow ∧
+  c.failClosedAudit ∧
+  c.allProtocolRoutesAudited ∧
+  c.noHiddenProtocolRecoveryImport ∧
+  c.noHiddenBenchmarkSuccessImport ∧
+  c.noHiddenPredictionSuccessImport ∧
+  c.noHiddenFalsificationSuccessImport ∧
+  c.noHiddenPhysicalPromotionImport ∧
+  c.noHiddenPhysicalValidationImport ∧
+  c.noHiddenEmpiricalAdequacyImport ∧
+  c.noHiddenObservedCatalogRecoveryImport ∧
+  c.noHiddenSimulationOnlyPromotionImport ∧
+  c.noHiddenFitOnlyCalibrationImport ∧
+  c.noHiddenPhysicalNatureImport ∧
+  c.noHiddenUnifiedFieldTheoryImport
+
+theorem pfp007_no_hidden_promotion_validation_success_audit_closed_from_fields
+    (c : PFP007NoHiddenPromotionValidationSuccessAuditContract)
+    (hPFP006 : c.pfp006StabilityReproducibilityClosed)
+    (hFinite : c.finiteAuditRow)
+    (hFailClosed : c.failClosedAudit)
+    (hAllRoutes : c.allProtocolRoutesAudited)
+    (hNoRecovery : c.noHiddenProtocolRecoveryImport)
+    (hNoBenchmark : c.noHiddenBenchmarkSuccessImport)
+    (hNoPrediction : c.noHiddenPredictionSuccessImport)
+    (hNoFalsification : c.noHiddenFalsificationSuccessImport)
+    (hNoPromotion : c.noHiddenPhysicalPromotionImport)
+    (hNoValidation : c.noHiddenPhysicalValidationImport)
+    (hNoEmpirical : c.noHiddenEmpiricalAdequacyImport)
+    (hNoObserved : c.noHiddenObservedCatalogRecoveryImport)
+    (hNoSimulation : c.noHiddenSimulationOnlyPromotionImport)
+    (hNoFit : c.noHiddenFitOnlyCalibrationImport)
+    (hNoNature : c.noHiddenPhysicalNatureImport)
+    (hNoUFT : c.noHiddenUnifiedFieldTheoryImport) :
+    PFP007NoHiddenPromotionValidationSuccessAuditContract.closed c := by
+  unfold PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+  exact ⟨hPFP006, hFinite, hFailClosed, hAllRoutes, hNoRecovery,
+    hNoBenchmark, hNoPrediction, hNoFalsification, hNoPromotion,
+    hNoValidation, hNoEmpirical, hNoObserved, hNoSimulation, hNoFit,
+    hNoNature, hNoUFT⟩
+
+def pfp007CanonicalNoHiddenPromotionValidationSuccessAuditContract :
+    PFP007NoHiddenPromotionValidationSuccessAuditContract :=
+  {
+    pfp006StabilityReproducibilityClosed :=
+      PFP006StabilityReproducibilityContract.closed
+        pfp006CanonicalStabilityReproducibilityContract,
+    finiteAuditRow := True,
+    failClosedAudit := True,
+    allProtocolRoutesAudited := True,
+    noHiddenProtocolRecoveryImport := True,
+    noHiddenBenchmarkSuccessImport := True,
+    noHiddenPredictionSuccessImport := True,
+    noHiddenFalsificationSuccessImport := True,
+    noHiddenPhysicalPromotionImport := True,
+    noHiddenPhysicalValidationImport := True,
+    noHiddenEmpiricalAdequacyImport := True,
+    noHiddenObservedCatalogRecoveryImport := True,
+    noHiddenSimulationOnlyPromotionImport := True,
+    noHiddenFitOnlyCalibrationImport := True,
+    noHiddenPhysicalNatureImport := True,
+    noHiddenUnifiedFieldTheoryImport := True
+  }
+
+theorem pfp007_canonical_no_hidden_promotion_validation_success_audit_closed :
+    PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+      pfp007CanonicalNoHiddenPromotionValidationSuccessAuditContract := by
+  unfold PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+  unfold pfp007CanonicalNoHiddenPromotionValidationSuccessAuditContract
+  simp
+
+/--
 The full Paper 15 theorem stays closed only after a future final conditional
 certificate. `PFP-001` intentionally leaves that field false.
 -/
@@ -954,6 +1053,49 @@ theorem paper15_pfp006_skeleton_does_not_close_prediction_falsification_protocol
       paper15PFP006SkeletonContract := by
   unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
   unfold paper15PFP006SkeletonContract
+  simp
+
+def paper15PFP007SkeletonContract :
+    Paper15PredictionFalsificationProtocolsTheoremContract :=
+  {
+    pfp001UpstreamBindingClosed :=
+      PFP001UpstreamBindingContract.closed
+        pfp001CanonicalUpstreamBindingContract,
+    pfp002FiniteProtocolRecordClosed :=
+      PFP002FiniteProtocolRecordContract.closed
+        pfp002CanonicalFiniteProtocolRecordContract,
+    pfp003PredictionTargetRegimeClosed :=
+      PFP003PredictionTargetRegimeContract.closed
+        pfp003CanonicalPredictionTargetRegimeContract,
+    pfp004FalsificationThresholdClosed :=
+      PFP004FalsificationThresholdContract.closed
+        pfp004CanonicalFalsificationThresholdContract,
+    pfp005Paper14BenchmarkCompatibilityClosed :=
+      PFP005Paper14BenchmarkCompatibilityContract.closed
+        pfp005CanonicalPaper14BenchmarkCompatibilityContract,
+    pfp006StabilityReproducibilityClosed :=
+      PFP006StabilityReproducibilityContract.closed
+        pfp006CanonicalStabilityReproducibilityContract,
+    pfp007NoHiddenPromotionValidationSuccessAuditClosed :=
+      PFP007NoHiddenPromotionValidationSuccessAuditContract.closed
+        pfp007CanonicalNoHiddenPromotionValidationSuccessAuditContract,
+    pfp008FinalConditionalCertificateClosed := False,
+    noProtocolRecoveryClaim := True,
+    noBenchmarkSuccessClaim := True,
+    noPredictionSuccessClaim := True,
+    noFalsificationSuccessClaim := True,
+    noPhysicalPromotionClaim := True,
+    noPhysicalValidationClaim := True,
+    noEmpiricalAdequacyClaim := True,
+    noPhysicalNatureClaim := True,
+    noUnifiedFieldTheoryClaim := True
+  }
+
+theorem paper15_pfp007_skeleton_does_not_close_prediction_falsification_protocols_theorem :
+    ¬ Paper15PredictionFalsificationProtocolsTheoremContract.closed
+      paper15PFP007SkeletonContract := by
+  unfold Paper15PredictionFalsificationProtocolsTheoremContract.closed
+  unfold paper15PFP007SkeletonContract
   simp
 
 end FiniteCapacity
